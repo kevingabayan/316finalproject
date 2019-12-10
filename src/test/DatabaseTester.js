@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import wireFramerJson from './WireFramerData.json'
 import { getFirestore } from 'redux-firestore';
+import { database } from 'firebase';
 
 class DatabaseTester extends React.Component {
 
@@ -20,19 +21,24 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
-        wireFramerJson.wireFrames.forEach(wireFramerJson => {
-            fireStore.collection('wireFrames').add({
-                    name: wireFramerJson.name,
-                    owner: wireFramerJson.owner,
-                    width: wireFramerJson.width,
-                    height: wireFramerJson.height,
-                    timestamp: wireFramerJson.timestamp,
-                    containers: wireFramerJson.containers
-                }).then(() => {
-                    console.log("DATABASE RESET");
-                }).catch((err) => {
-                    console.log(err);
+        var usersRef = fireStore.collection("users");
+        usersRef.get().then(snapshot => {
+            snapshot.forEach(doc => {
+                wireFramerJson.wireFrames.forEach(wireFramerJson => {
+                    fireStore.collection('wireFrames').add({
+                        name: wireFramerJson.name,
+                        owner: doc.id,
+                        width: wireFramerJson.width,
+                        height: wireFramerJson.height,
+                        timestamp: wireFramerJson.timestamp,
+                        containers: wireFramerJson.containers
+                        }).then(() => {
+                            console.log("DATABASE RESET");
+                        }).catch((err) => {
+                            console.log(err);
+                        });
                 });
+            })
         });
     }
 

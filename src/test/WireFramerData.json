@@ -3,7 +3,6 @@
         {
             "key": 0,
             "name": "The Subtleties of Life",
-            "owner": "Kevin Gabayan",
             "width": 4000,
             "height": 4000,
             "timestamp": 2,
@@ -30,7 +29,6 @@
         {
             "key": 1,
             "name": "The Killa of Gorillas",
-            "owner": "Mr. Mckenna",
             "width": 3000,
             "height": 3000,
             "timestamp": 1,
@@ -57,7 +55,6 @@
         {
             "key": 2,
             "name": "The Saddest Frame",
-            "owner": "Wire Framer",
             "width": 5000,
             "height": 5000,
             "timestamp": 0,

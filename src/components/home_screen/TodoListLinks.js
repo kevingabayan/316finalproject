@@ -14,11 +14,14 @@ class TodoListLinks extends React.Component {
     }
 
     render() {
+        const auth = this.props.auth;
+        console.log(auth.uid);
         const wireFrames = this.props.wireFrames
-        console.log(wireFrames);
+        var wireFramer = wireFrames;
+        console.log(wireFramer);
         return (
             <div className="todo-lists section">
-                {wireFrames && wireFrames.slice(0).reverse().map(wireFrames => (
+                {wireFrames && wireFrames.slice(0).filter(wireFrame => wireFrame.owner == auth.uid).reverse().map(wireFrames => (
                     <Link to={'/todoList/' + wireFrames.id} onClick = {this.handleTop.bind(this, wireFrames.id)} key={wireFrames.id}>
                         <TodoListCard wireFrames={wireFrames} />
                     </Link>

@@ -35,13 +35,11 @@ class HomeScreen extends Component {
                     <div className="col s12 m4">
                         <TodoListLinks />
                     </div>
-
                     <div className="col s8">
                         <div className="banner">
                             The<br />
                             Wire Framer 
                         </div>
-                        
                     <div className="home_new_list_container">
                         <button className="home_new_list_button" onClick={this.handleNewList}>
                             Create a New Wire Framer
