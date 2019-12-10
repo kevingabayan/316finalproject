@@ -64,6 +64,9 @@ div.banner {
   right: 0px;
 }
 
+.edit-card {
+  height: 1000px;
+}
 .todo-list-link:hover {
   cursor:pointer
 }

@@ -12,14 +12,16 @@ class HomeScreen extends Component {
         var newbind = this;
         var date = new Date();
         const fireStore = getFirestore();
-        fireStore.collection('todoLists').add({
-            name: "Unknown",
-            owner: "Unknown",
-            items: [],
-            timestamp: date.getTime()
+        fireStore.collection('wireFrames').add({
+            name: "",
+            owner: this.props.auth.uid,
+            width: 2500,
+            height: 2500,
+            timestamp: date.getTime(),
+            containers: []
         })
-        .then(function(todoList) {
-            newbind.props.history.push("/wireFramer/" + todoList.id);
+        .then(function(wireFramer) {
+            newbind.props.history.push("/wireFramer/" + wireFramer.id);
         })
     }
 

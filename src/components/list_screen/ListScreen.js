@@ -12,12 +12,6 @@ class ListScreen extends Component {
     state = {
     }
 
-    handleDeletion = () => {
-        const fireStore = getFirestore();
-        fireStore.collection('todoLists').doc(this.props.todoList.id).delete();
-        this.props.history.push("/");
-    }
-
     handleChange = (e) => {
         const { target } = e;
         if(target.id == 'name') {
@@ -42,7 +36,26 @@ class ListScreen extends Component {
         }
 
         return (
-            <div>ok</div>
+            <div class = "row">
+                <div class = "col s3">
+                    <div class="edit-card card-panel teal">
+                        <span class="white-text">
+                        </span>
+                    </div>
+                </div>
+                <div class = "col s6">
+                    <div class="edit-card card-panel white">
+                            <span class="white-text">
+                            </span>
+                        </div>
+                </div>
+                <div class = "col s3">
+                    <div class="edit-card card-panel teal">
+                        <span class="white-text">
+                        </span>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
