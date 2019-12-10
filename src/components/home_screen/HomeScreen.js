@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
-import TodoListLinks from './TodoListLinks'
+import WireFrameLinks from './WireFrameLinks'
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
 
@@ -19,7 +19,7 @@ class HomeScreen extends Component {
             timestamp: date.getTime()
         })
         .then(function(todoList) {
-            newbind.props.history.push("/todoList/" + todoList.id);
+            newbind.props.history.push("/wireFramer/" + todoList.id);
         })
     }
 
@@ -33,7 +33,7 @@ class HomeScreen extends Component {
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m4">
-                        <TodoListLinks />
+                        <WireFrameLinks />
                     </div>
                     <div className="col s8">
                         <div className="banner">

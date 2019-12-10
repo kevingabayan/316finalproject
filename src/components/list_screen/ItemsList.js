@@ -126,7 +126,7 @@ class ItemsList extends React.Component {
     }
 
     handleNewItem = () => {
-        this.props.history.push("/todoList/" + this.props.todoList.id + "/" + this.props.todoList.items.length);
+        this.props.history.push("/wireFramer/" + this.props.todoList.id + "/" + this.props.todoList.items.length);
     }
 
     render() {

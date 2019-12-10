@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TodoListCard extends React.Component {
+class WireFrameCard extends React.Component {
 
     render() {
         const { wireFrames } = this.props;
@@ -14,4 +14,4 @@ class TodoListCard extends React.Component {
         );
     }
 }
-export default TodoListCard;
+export default WireFrameCard;
