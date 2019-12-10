@@ -10,17 +10,17 @@ class TodoListLinks extends React.Component {
         var date = new Date();
         const fireStore = getFirestore();
         console.log(id);
-        fireStore.collection('todoLists').doc(id).update({timestamp: date.getTime()});
+        fireStore.collection('wireFrames').doc(id).update({timestamp: date.getTime()});
     }
 
     render() {
-        const todoLists = this.props.todoLists
-        console.log(todoLists);
+        const wireFrames = this.props.wireFrames
+        console.log(wireFrames);
         return (
             <div className="todo-lists section">
-                {todoLists && todoLists.slice(0).reverse().map(todoList => (
-                    <Link to={'/todoList/' + todoList.id} onClick = {this.handleTop.bind(this, todoList.id)} key={todoList.id}>
-                        <TodoListCard todoList={todoList} />
+                {wireFrames && wireFrames.slice(0).reverse().map(wireFrames => (
+                    <Link to={'/todoList/' + wireFrames.id} onClick = {this.handleTop.bind(this, wireFrames.id)} key={wireFrames.id}>
+                        <TodoListCard wireFrames={wireFrames} />
                     </Link>
                 ))}
             </div>
@@ -30,7 +30,7 @@ class TodoListLinks extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        todoLists: state.firestore.ordered.todoLists,
+        wireFrames: state.firestore.ordered.wireFrames,
         auth: state.firebase.auth,
     };
 };

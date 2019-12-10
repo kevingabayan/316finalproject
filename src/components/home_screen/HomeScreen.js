@@ -24,7 +24,8 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const todoLists = this.props.todoLists;
+        const wireFrames = this.props.todoLists;
+        console.log(wireFrames);
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
@@ -37,13 +38,13 @@ class HomeScreen extends Component {
 
                     <div className="col s8">
                         <div className="banner">
-                            @todo<br />
-                            List Maker
+                            The<br />
+                            Wire Framer 
                         </div>
                         
                     <div className="home_new_list_container">
                         <button className="home_new_list_button" onClick={this.handleNewList}>
-                            Create a New To Do List
+                            Create a New Wire Framer
                          </button>
                         </div>
                     </div>
@@ -62,6 +63,6 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists', orderBy: 'timestamp'},
+      { collection: 'wireFrames', orderBy: 'timestamp'},
     ]),
 )(HomeScreen);
