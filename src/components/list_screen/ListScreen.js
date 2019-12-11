@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
@@ -11,23 +10,6 @@ import {Modal} from 'react-materialize';
 class ListScreen extends Component {
     state = {
     }
-
-    handleChange = (e) => {
-        const { target } = e;
-        if(target.id == 'name') {
-            const fireStore = getFirestore();
-            fireStore.collection('todoLists').doc(this.props.todoList.id).update({name: target.value});
-        }
-        else {
-            const fireStore = getFirestore();
-            fireStore.collection('todoLists').doc(this.props.todoList.id).update({owner: target.value});
-        }
-        this.setState(state => ({
-            ...state,
-            [target.id]: target.value,
-        }));
-    }
-
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
@@ -59,19 +41,16 @@ class ListScreen extends Component {
         );
     }
 }
-
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
   const { wireFrames } = state.firestore.data;
   const wireFrame = wireFrames ? wireFrames[id] : null;
   wireFrame.id = id;
-
   return {
     wireFrame,
     auth: state.firebase.auth,
   };
 };
-
 export default compose(
   withRouter,
   connect(mapStateToProps),
