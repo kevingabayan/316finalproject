@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
-
 import Navbar from './components/navbar/Navbar.js';
 import RegisterScreen from './components/register_screen/RegisterScreen.js';
 import LoginScreen from './components/login_screen/LoginScreen.js';

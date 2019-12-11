@@ -5,33 +5,36 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
-import {Modal} from 'react-materialize';
+import Draggable from 'react-draggable';
+import ScrollArea from 'react-scrollbar';
 
 class ListScreen extends Component {
     state = {
     }
     render() {
         const auth = this.props.auth;
-        const todoList = this.props.todoList;
+        const wireFrames = this.props.wireFrames;
+        const containerStyle = {
+            width: '5000px',
+            height: '5000px',
+        }
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
-
         return (
             <div class = "row">
-                <div class = "col s3">
+                <div class = "col s2">
                     <div class="edit-card card-panel teal">
-                        <span class="white-text">
-                        </span>
                     </div>
                 </div>
-                <div class = "col s6">
-                    <div class="edit-card card-panel white">
-                            <span class="white-text">
-                            </span>
+                <div class = "col s8">
+                    <div class = "edit-card-main card-panel white">
+                        <div className = "BORED" style = {containerStyle}>
+                            ah yes
                         </div>
+                    </div>
                 </div>
-                <div class = "col s3">
+                <div class = "col s2">
                     <div class="edit-card card-panel teal">
                         <span class="white-text">
                         </span>

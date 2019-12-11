@@ -67,6 +67,10 @@ div.banner {
 .edit-card {
   height: 1000px;
 }
+.edit-card-main {
+  height: 1000px;
+  overflow: scroll
+}
 .todo-list-link:hover {
   cursor:pointer
 }
