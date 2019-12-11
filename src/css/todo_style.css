@@ -51,6 +51,7 @@ div.banner {
   cursor: pointer
 }
 .fixed-action-btn {
+  top: 0px;
   position: absolute;
 }
 
