@@ -6,7 +6,7 @@
             "width": 4000,
             "height": 4000,
             "timestamp": 2,
-            "containers": [
+            "objects": [
                 {
                     "width": 2000,
                     "height": 2000,
@@ -32,25 +32,10 @@
             "width": 3000,
             "height": 3000,
             "timestamp": 1,
-            "containers": [
-                {
-                    "width": 2000,
-                    "height": 2000,
-                    "label": [
-                        {
-                            "border_thickness": 2,
-                            "border_radius": 30,
-                            "x": 2000,
-                            "y": 2000,
-                            "width": 200,
-                            "height": 200,
-                            "value": "StarcraftPro",
-                            "font_size": 32,
-                            "color": "#00FFFF"
-                        }
-                    ] 
-                }
-            ]
+            "objects": [{
+                "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "active-pointer", "value": "ok", "type": "text", "style": [{"fontSize": "15px", "borderColor": "black", 
+                        "backgroundColor": "blue", "color": "black", "borderRadius": "", "borderWidth": "thick"}]
+                        }]
         },
         {
             "key": 2,
@@ -58,7 +43,7 @@
             "width": 5000,
             "height": 5000,
             "timestamp": 0,
-            "containers": [
+            "objects": [
                 {
                     "width": 2000,
                     "height": 2000,

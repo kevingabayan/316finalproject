@@ -68,6 +68,11 @@ div.banner {
 .pointer {
   color: grey;
   background-color: grey;
+  opacity: 0.0;
+}
+.active-pointer {
+  color: grey;
+  background-color: grey;
   opacity: 0.5;
 }
 .edit-card {

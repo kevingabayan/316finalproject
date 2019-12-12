@@ -17,63 +17,15 @@ class ListScreen extends Component {
         zoom: 1,
         changeSave: "disabled",
         changeDimensions: "disabled",
-        selectedDiv: "none",
+        selectedDivBoolean: false,
+        selectedDiv: "",
 
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
-        objects: [
-            <Rnd
-                onDragStop= {e => {this.onDragStop(e)}}
-                className = "0"
-                resizeHandleClasses = {{
-                    bottomLeft: "pointer",
-                    bottomRight: "pointer",
-                    topRight: "pointer",
-                    topLeft: "pointer",
-                }}
-                resizeHandleComponent = {{
-                    bottomLeft: React.createElement('div', {id: 'pointer'}, " l"),
-                    bottomRight: React.createElement('div', {id: 'pointer'}, " l"),
-                    topRight: React.createElement('div', {id: 'pointer'}, " l"),
-                    topLeft: React.createElement('div', {id: 'pointer'}, " l")
-                }
-                }
-                bounds = {"parent"}
-                >
-                    <div className = "input-field">
-                        <input type="text" name="widthtext" id = "widthtext" value = "ok"/>
-                    </div>
-            </Rnd>,
-            <Rnd
-            onDragStop= {e => {this.onDragStop(e)}}
-            className = "0"
-            resizeHandleClasses = {{
-                bottomLeft: "pointer",
-                bottomRight: "pointer",
-                topRight: "pointer",
-                topLeft: "pointer",
-            }}
-            resizeHandleComponent = {{
-                bottomLeft: React.createElement('div', {id: 'pointer'}, " l"),
-                bottomRight: React.createElement('div', {id: 'pointer'}, " l"),
-                topRight: React.createElement('div', {id: 'pointer'}, " l"),
-                topLeft: React.createElement('div', {id: 'pointer'}, " l")
-            }
-            }
-            bounds = {"parent"}
-            >
-                coolbeans
-            </Rnd>
-        ]
-    }
-
-    selectDiv = (e) => {
-        console.log("AHHHHHHHHHHHH");
-    }
-
-    onDragStop = (e) => {
-        console.log(this.state.objects);
-        console.log(e.target);
+        objects: [{width: 200, height: 50, x: 200, y: 200, key: "0", childClass: "active-pointer", value: "ok", type: "text", fontSize: "15px", borderColor: "black", 
+        backgroundColor: "", color: "black", borderRadius: "", borderWidth: "thick"}, 
+        {width: 200, height: 50, x: 0, y: 0, key: "1", childClass: "active-pointer", value: "ok", type: "button", fontSize: "15px", borderColor: "black", 
+        backgroundColor: "", color: "black", borderRadius: "", borderWidth: "thick"}]
     }
 
     handleDimensionChange = (e) => {
@@ -137,6 +89,30 @@ class ListScreen extends Component {
         this.props.history.push("/");
     }
 
+
+    onDragStop = (e, d) => {
+        e.stopPropagation();
+        let objectindex = e.target.className.charAt(0);
+        if(objectindex == "b") {
+            objectindex = e.target.className.charAt((e.target.className.length)-1);
+        }
+        let tempobject = this.state.objects;
+        tempobject[objectindex].x = d.x;
+        tempobject[objectindex].y = d.y;
+        this.setState({objects: tempobject});
+    }
+    onResizeStop = (e,direction,ref,delta,position) => {
+        console.log(ref);
+        let objectindex = ref.className.charAt(0);
+        if(objectindex == "b") {
+            objectindex = ref.className.charAt((ref.target.className.length)-1);
+        }
+        let tempobject = this.state.objects;
+        tempobject[objectindex].width = ref.width;
+        tempobject[objectindex].height = ref.height;
+        this.setState({objects: tempobject})
+    }
+
     render() {
         const auth = this.props.auth;
         const wireFrameStyle = {
@@ -146,7 +122,115 @@ class ListScreen extends Component {
             transformOrigin: "0 0",
             borderStyle: 'solid',
             borderWidth: 'thick',
-            
+        }
+        const containerItems = [];
+        for(let i = 0; i < this.state.objects.length; i++) {
+            if(this.state.objects[i].type === "text") {
+                containerItems.push(<Rnd
+                    size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
+                    onDragStop= {(e,d) => {this.onDragStop(e,d)}}
+                    onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
+                    className = {this.state.objects[i].key}
+                    resizeHandleClasses = {{
+                        bottomLeft:  this.state.objects[i].childClass,
+                        bottomRight: this.state.objects[i].childClass,
+                        topRight: this.state.objects[i].childClass,
+                        topLeft: this.state.objects[i].childClass,
+                    }}
+                    resizeHandleComponent = {{
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                    }}
+                    enableResizing = {{
+                        bottom: false,
+                        top: false,
+                        left: false,
+                        right: false,
+                        bottomLeft: true,
+                        bottomRight: true,
+                        topLeft: true,
+                        topRight: true
+                    }}
+                    bounds = {"parent"}
+                    >
+                        <input className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
+                        backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}} 
+                        value = {this.state.objects[i].value}/>
+                </Rnd>)
+            }
+            else if (this.state.objects[i].type === "LC") {
+                containerItems.push(<Rnd
+                    size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
+                    onDragStop= {(e,d) => {this.onDragStop(e,d)}}
+                    onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
+                    className = {this.state.objects[i].key}
+                    resizeHandleClasses = {{
+                        bottomLeft:  this.state.objects[i].childClass,
+                        bottomRight: this.state.objects[i].childClass,
+                        topRight: this.state.objects[i].childClass,
+                        topLeft: this.state.objects[i].childClass,
+                    }}
+                    resizeHandleComponent = {{
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                    }}
+                    enableResizing = {{
+                        bottom: false,
+                        top: false,
+                        left: false,
+                        right: false,
+                        bottomLeft: true,
+                        bottomRight: true,
+                        topLeft: true,
+                        topRight: true
+                    }}
+                    bounds = {"parent"}
+                    >
+                        <div className = {this.state.objects[i].key} style = {this.state.objects[i].style}>{this.state.objects[i].value}</div>
+                </Rnd>) 
+            }
+            else if (this.state.objects[i].type == "button") {
+                containerItems.push(<Rnd
+                    size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
+                    onDragStop= {(e,d) => {this.onDragStop(e,d)}}
+                    onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
+                    className = {this.state.objects[i].key}
+                    resizeHandleClasses = {{
+                        bottomLeft:  this.state.objects[i].childClass,
+                        bottomRight: this.state.objects[i].childClass,
+                        topRight: this.state.objects[i].childClass,
+                        topLeft: this.state.objects[i].childClass,
+                    }}
+                    resizeHandleComponent = {{
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                    }}
+                    enableResizing = {{
+                        bottom: false,
+                        top: false,
+                        left: false,
+                        right: false,
+                        bottomLeft: true,
+                        bottomRight: true,
+                        topLeft: true,
+                        topRight: true
+                    }}
+                    bounds = {"parent"}
+                    >
+                        <Button className = {this.state.objects[i].key} type="text" style = {this.state.objects[i].style}>{this.state.objects[i].value}</Button>
+                </Rnd>) 
+            }
         }
         if (!auth.uid) {
             return <Redirect to="/" />;
@@ -194,7 +278,7 @@ class ListScreen extends Component {
                 <div class = "col s8">
                     <div class = "edit-card-main card-panel white">
                         <div className = "wireFrameContainer" style = {wireFrameStyle}>
-                            {this.state.objects}
+                            {containerItems}
                         </div>
                     </div>
                 </div>
