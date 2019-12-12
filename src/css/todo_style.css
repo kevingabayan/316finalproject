@@ -41,9 +41,6 @@ div.banner {
 .plus:hover {
   cursor: pointer
 }
-.trashcan{
-  font-size: 70px;
-}
 .todoprompt{
   font-size: 50px;
 }
@@ -53,6 +50,9 @@ div.banner {
 .fixed-action-btn {
   top: 0px;
   position: absolute;
+}
+.addrow {
+  width: 185px;
 }
 
 #child {

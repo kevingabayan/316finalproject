@@ -21,11 +21,31 @@ class ListScreen extends Component {
         resizePrevention: false,
         tempo: false,
 
+        name: this.props.wireFrame.name,
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
         objects: this.props.wireFrame.objects
     }
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevState.zoom != this.state.zoom) {
+            this.unselectDivs()
+        }
+        if(this.state.tempo) {
+            this.okiedokie()
+        }
+    }
+    okiedokie = () => {
+        this.setState({objects: this.state.objects, tempo: false})
+    }
+    handleChange = (e) => {
+        const { target } = e;
+    
+        this.setState(state => ({
+          ...state,
+          changeSave: "",
+          [target.id]: target.value,
+        }));
+      }
     handleDimensionChange = (e) => {
         const { target } = e;
         if(!isNaN(target.value)) {   
@@ -36,7 +56,6 @@ class ListScreen extends Component {
             }));
         }
     }
-
     updateDimensions = () => {
         let normalwidth = true;
         let normalheight = true;
@@ -64,19 +83,6 @@ class ListScreen extends Component {
         }
         this.setState({changeSave: "", changeDimensions: "disabled"});
     }
-    
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevState.zoom != this.state.zoom) {
-            this.unselectDivs()
-        }
-        if(this.state.tempo) {
-            this.okiedokie()
-        }
-    }
-    okiedokie = () => {
-        this.setState({objects: this.state.objects, tempo: false})
-    }
-
     okzoomerin = (e) => {
         let ok = this.state.zoom * 2;
         this.setState(state => ({
@@ -97,7 +103,8 @@ class ListScreen extends Component {
         fireStore.collection('wireFrames').doc(this.props.wireFrame.id).update({
             width: this.state.width,
             height: this.state.height,
-            objects: this.state.objects
+            objects: this.state.objects,
+            name: this.state.name
         });
         this.props.history.push("/");
     }
@@ -122,19 +129,6 @@ class ListScreen extends Component {
         }
         
     }
-    unselectDivs = () => {
-        if(this.state.resizePrevention) {
-            this.setState({resizePrevention: false});
-        }
-        else {
-        let tempobject = this.state.objects;
-        for (let i = 0; i < tempobject.length; i++) {
-            tempobject[i].childClass = "pointer";
-        }
-        this.setState({selectedDiv: "", objects: tempobject});
-        }
-        console.log(this.state.zoom);
-    }
     selectDiv = (e) => {
         e.stopPropagation();
         this.unselectDivs();
@@ -149,6 +143,19 @@ class ListScreen extends Component {
             console.log(this.state.objects[i].x);
             console.log(this.state.objects[i].y);
         }
+    }
+    unselectDivs = () => {
+        if(this.state.resizePrevention) {
+            this.setState({resizePrevention: false});
+        }
+        else {
+        let tempobject = this.state.objects;
+        for (let i = 0; i < tempobject.length; i++) {
+            tempobject[i].childClass = "pointer";
+        }
+        this.setState({selectedDiv: "", objects: tempobject});
+        }
+        console.log(this.state.zoom);
     }
     render() {
         const auth = this.props.auth;
@@ -320,6 +327,12 @@ class ListScreen extends Component {
                         <br></br>
                         <div class = "row">
                             <div className="input-field">
+                                <label htmlFor="width" className="active black-text">Name</label>
+                                <input type="text" name="name" id = "name" onChange = {e => {this.handleChange(e)}} value = {this.state.name} />
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div className="input-field">
                                 <label htmlFor="width" className="active black-text">Width [1-5000] [.2x] </label>
                                 <input type="text" name="widthtext" id = "widthtext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.widthtext} />
                             </div>
@@ -328,6 +341,26 @@ class ListScreen extends Component {
                             <div className="input-field">
                                 <label htmlFor="height" className="active black-text">Height [1-5000] [.2x] </label>
                                 <input type="text" name="heighttext" id = "heighttext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.heighttext} />
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col s12">
+                                <a class={"addrow waves-effect waves-light red btn "} onClick = {this.addContainer}>Add Container</a>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col s12">
+                                <a class={"addrow waves-effect waves-light red btn "} onClick = {this.addLabel}>Add Label</a>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col s12">
+                                <a class={"addrow waves-effect waves-light red btn "} onClick = {this.addButton}>Add Button</a>
+                            </div>
+                        </div>
+                        <div class = "row">
+                            <div class = "col s12">
+                                <a class={"addrow waves-effect waves-light red btn "} onClick = {this.addTextfield}>Add Textfield</a>
                             </div>
                         </div>
                     </div>
