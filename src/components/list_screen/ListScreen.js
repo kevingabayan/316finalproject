@@ -13,22 +13,40 @@ class ListScreen extends Component {
     state = {
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
-        zoom: 100,
-        changepresent: "disabled"
+        zoom: 1,
+        changeSave: "disabled",
+        changeDimensions: "disabled"
     }
+
+    handleChange = (e) => {
+        const { target } = e;
+        this.setState(state => ({
+          ...state,
+          [target.id]: target.value,
+        }));
+    }
+
+    updateDimensionButton = () => {
+        this.setState({changeDimensions: ""});
+    }
+
     okzoomerin = () => {
         this.setState({zoom: this.state.zoom * 2});
     }
     okzoomerout = () => {
         this.setState({zoom: this.state.zoom * 1/2});
     }
+
     render() {
         const auth = this.props.auth;
         const wireFrameStyle = {
             width: this.state.width,
             height: this.state.height,
-            zoom: this.state.zoom.toString() + "%",
-            borderStyle: 'solid'
+            transform: "scale(" + this.state.zoom.toString() + ")",
+            transformOrigin: "0 0",
+            borderStyle: 'solid',
+            borderWidth: 'thick',
+            
         }
         if (!auth.uid) {
             return <Redirect to="/" />;
@@ -40,7 +58,7 @@ class ListScreen extends Component {
 
                         <div class = "row">
                             <div class = "col s6">
-                                <a class={"waves-effect waves-light red btn " + this.state.changepresent}>Save</a>
+                                <a class={"waves-effect waves-light red btn " + this.state.changeSave}>Save</a>
                             </div>
                             <div class = "col s6">
                                 <a class="waves-effect waves-light red btn">Close</a>
@@ -49,10 +67,31 @@ class ListScreen extends Component {
 
                         <div class = "row">
                             <div class = "col s6">
-                                <a class="btn btn waves-effect waves-light red" onClick = {this.okzoomerin}><i class="material-icons">zoom_in</i></a>
+                                <a class="btn waves-effect waves-light red" onClick = {this.okzoomerin}><i class="material-icons">zoom_in</i></a>
                             </div>
                             <div class = "col s6">
-                                <a class="btn btn waves-effect waves-light red"onClick = {this.okzoomerout}><i class="material-icons">zoom_out</i></a>
+                                <a class=" btn waves-effect waves-light red"onClick = {this.okzoomerout}><i class="material-icons">zoom_out</i></a>
+                            </div>
+                        </div>
+                        
+                        <div class = "row">
+                            <div class = "col s12">
+                                <a class={"waves-effect waves-light red btn " + this.state.changeDimensions} onClick = {this.updateDimensions}><i class="material-icons right">crop_square</i>Update Dim.</a>
+                            </div>
+                        </div>
+
+                        <br></br>
+                        <div class = "row">
+                            <div className="input-field">
+                                <label htmlFor="width" className="active black-text">Width</label>
+                                <input type="number" min = "1" max = "5000" name="width" id = "width" onChange = {e => {this.handleChange(e); this.updateDimensionButton()}} value = {this.state.width} />
+                            </div>
+                        </div>
+
+                        <div class = "row">
+                            <div className="input-field">
+                                <label htmlFor="height" className="active black-text">height</label>
+                                <input type="number" min = "1" max = "5000" name="height" id = "height" onChange = {e => {this.handleChange(e); this.updateDimensionButton()}} value = {this.state.height} />
                             </div>
                         </div>
 
@@ -60,7 +99,7 @@ class ListScreen extends Component {
                 </div>
                 <div class = "col s8">
                     <div class = "edit-card-main card-panel white">
-                        <div className = "BORED" style = {wireFrameStyle}>
+                        <div className = "wireFrameContainer" style = {wireFrameStyle}>
                             
                         </div>
                     </div>

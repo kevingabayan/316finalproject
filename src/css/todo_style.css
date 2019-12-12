@@ -70,12 +70,11 @@ div.banner {
 }
 .edit-card-main {
   height: 1000px;
-  overflow: scroll
+  overflow: auto;
 }
 .todo-list-link:hover {
   cursor:pointer
 }
-
 .modal {
   top: 100px;
 }
