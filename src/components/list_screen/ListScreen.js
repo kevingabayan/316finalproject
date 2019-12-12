@@ -13,21 +13,51 @@ class ListScreen extends Component {
     state = {
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
+        widthtext: this.props.wireFrame.width,
+        heighttext: this.props.wireFrame.height,
         zoom: 1,
         changeSave: "disabled",
         changeDimensions: "disabled"
     }
 
-    handleChange = (e) => {
+    handleDimensionChange = (e) => {
         const { target } = e;
-        this.setState(state => ({
-          ...state,
-          [target.id]: target.value,
-        }));
+        console.log(target.value);
+        if(!isNaN(target.value)) {   
+            this.setState(state => ({
+            ...state,
+            changeDimensions: "",
+            [target.id]: target.value,
+            }));
+        }
     }
 
-    updateDimensionButton = () => {
-        this.setState({changeDimensions: ""});
+    updateDimensions = () => {
+        let normalwidth = true;
+        let normalheight = true;
+        if(this.state.widthtext > 5000) {
+            normalwidth = false;
+            this.setState({width: 5000, widthtext: 5000});
+        }
+        if(this.state.widthtext < 1) {
+            normalwidth = false;
+            this.setState({width: 1, widthtext: 1});
+        }
+        if(this.state.heighttext > 5000) {
+            normalheight = false;
+            this.setState({height: 5000, heighttext: 5000});
+        }
+        if(this.state.heighttext < 1) {
+            normalheight = false;
+            this.setState({height: 1, heighttext: 1});
+        }
+        if(normalheight) {
+            this.setState({height: this.state.heighttext});
+        }
+        if(normalwidth) {
+            this.setState({width: this.state.widthtext});
+        }
+        this.setState({changeSave: "", changeDimensions: "disabled"});
     }
 
     okzoomerin = () => {
@@ -40,8 +70,8 @@ class ListScreen extends Component {
     render() {
         const auth = this.props.auth;
         const wireFrameStyle = {
-            width: this.state.width,
-            height: this.state.height,
+            width: this.state.width/5,
+            height: this.state.height/5,
             transform: "scale(" + this.state.zoom.toString() + ")",
             transformOrigin: "0 0",
             borderStyle: 'solid',
@@ -83,15 +113,15 @@ class ListScreen extends Component {
                         <br></br>
                         <div class = "row">
                             <div className="input-field">
-                                <label htmlFor="width" className="active black-text">Width</label>
-                                <input type="number" min = "1" max = "5000" name="width" id = "width" onChange = {e => {this.handleChange(e); this.updateDimensionButton()}} value = {this.state.width} />
+                                <label htmlFor="width" className="active black-text">Width [1/5 scaling] </label>
+                                <input type="text" name="widthtext" id = "widthtext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.widthtext} />
                             </div>
                         </div>
 
                         <div class = "row">
                             <div className="input-field">
-                                <label htmlFor="height" className="active black-text">height</label>
-                                <input type="number" min = "1" max = "5000" name="height" id = "height" onChange = {e => {this.handleChange(e); this.updateDimensionButton()}} value = {this.state.height} />
+                                <label htmlFor="height" className="active black-text">Height [1/5 scaling] </label>
+                                <input type="text" name="heighttext" id = "heighttext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.heighttext} />
                             </div>
                         </div>
 
