@@ -12,24 +12,21 @@ import {Rnd} from 'react-rnd';
 class ListScreen extends Component {
     
     state = {
+        zoom: 1,
         widthtext: this.props.wireFrame.width,
         heighttext: this.props.wireFrame.height,
-        zoom: 1,
         changeSave: "disabled",
         changeDimensions: "disabled",
         selectedDiv: "",
+        resizePrevention: false,
 
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
-        objects: [{width: 200, height: 50, x: 200, y: 200, key: "0", childClass: "active-pointer", value: "ok", type: "text", fontSize: "15px", borderColor: "black", 
-        backgroundColor: "", color: "black", borderRadius: "", borderWidth: "thick"}, 
-        {width: 200, height: 50, x: 0, y: 0, key: "1", childClass: "active-pointer", value: "ok", type: "button", fontSize: "15px", borderColor: "black", 
-        backgroundColor: "", color: "black", borderRadius: "", borderWidth: "thick"}]
+        objects: this.props.wireFrame.objects
     }
 
     handleDimensionChange = (e) => {
         const { target } = e;
-        console.log(target.value);
         if(!isNaN(target.value)) {   
             this.setState(state => ({
             ...state,
@@ -66,18 +63,27 @@ class ListScreen extends Component {
         }
         this.setState({changeSave: "", changeDimensions: "disabled"});
     }
-
-    okzoomerin = () => {
-        this.setState({zoom: this.state.zoom * 2});
+    
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevState.zoom != this.state.zoom) {
+            this.unselectDivs()
+        }
     }
-    okzoomerout = () => {
-        this.setState({zoom: this.state.zoom * 1/2});
-    }
 
+    okzoomerin = (e) => {
+        let ok = this.state.zoom * 2;
+        this.setState(state => ({
+            ...state,
+            zoom: ok,
+            }));
+    }
+    okzoomerout = (e) => {
+        let ok = this.state.zoom * 1/2;
+        this.setState({zoom: ok}, console.log(this.state.zoom));
+    }
     goHome = () => {
         this.props.history.push("/");
     }
-
     goSave = () => {
         let id = this.props.auth.uid;
         const fireStore = getFirestore();
@@ -91,36 +97,53 @@ class ListScreen extends Component {
 
     onDragStop = (e, d) => {
         e.stopPropagation();
+        let tempobject = this.state.objects;
+        if(this.state.selectedDiv != "") { 
+        tempobject[this.state.selectedDiv].x = d.x;
+        tempobject[this.state.selectedDiv].y = d.y;
+        }
+        this.setState({objects: tempobject});
+    }
+    onResizeStop = (e,direction,ref,delta,position) => {
+        e.stopPropagation();
+        let tempobject = this.state.objects;
+        if(this.state.selectedDiv != "") { 
+        tempobject[this.state.selectedDiv].width = ref.style.width;
+        tempobject[this.state.selectedDiv].height = ref.style.height;
+        tempobject[this.state.selectedDiv].x = position.x;
+        tempobject[this.state.selectedDiv].y = position.y;
+        this.setState({objects: tempobject, resizePrevention: true})
+        }
+        console.log(position);
+        
+    }
+    unselectDivs = () => {
+        if(this.state.resizePrevention) {
+            this.setState({resizePrevention: false});
+        }
+        else {
+        let tempobject = this.state.objects;
+        for (let i = 0; i < tempobject.length; i++) {
+            tempobject[i].childClass = "pointer";
+        }
+        this.setState({selectedDiv: "", objects: tempobject});
+        }
+        console.log(this.state.zoom);
+    }
+    selectDiv = (e) => {
+        e.stopPropagation();
+        this.unselectDivs();
         let objectindex = e.target.className.charAt(0);
         if(objectindex == "b") {
             objectindex = e.target.className.charAt((e.target.className.length)-1);
         }
         let tempobject = this.state.objects;
-        tempobject[objectindex].x = d.x;
-        tempobject[objectindex].y = d.y;
-        this.setState({objects: tempobject});
-    }
-    onResizeStop = (e,direction,ref,delta,position) => {
-        e.stopPropagation();
-        let objectindex = ref.className.charAt(0);
-        if(objectindex == "b") {
-            objectindex = ref.className.charAt((ref.target.className.length)-1);
+        tempobject[objectindex].childClass = "active-pointer";
+        this.setState({selectedDiv: objectindex, objects: tempobject});
+        for(let i = 0; i < this.state.objects.length; i++) {
+            console.log(this.state.objects[i].x);
+            console.log(this.state.objects[i].y);
         }
-        let tempobject = this.state.objects;
-        tempobject[objectindex].width = ref.style.width;
-        tempobject[objectindex].height = ref.style.height;
-        this.setState({objects: tempobject})
-    }
-    unselectDivs = (e) => {
-        console.log("TRUE");
-    }
-    selectDiv = (e) => {
-        e.stopPropagation();
-        console.log("TRUETRUE");
-    }
-    clearDiv = (e) => {
-        e.stopPropagation();
-        console.log("FALSEFALSE");
     }
     render() {
         const auth = this.props.auth;
@@ -137,9 +160,13 @@ class ListScreen extends Component {
             if(this.state.objects[i].type === "text") {
                 containerItems.push(<Rnd
                     size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    scale = {this.state.zoom}
+                    style = {{transform:"scale(" + this.state.zoom.toString() + ")"}}
                     position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
                     onDragStop= {(e,d) => {this.onDragStop(e,d)}}
                     onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
+                    maxWidth = {this.state.width/5}
+                    maxHeight = {this.state.height/5}
                     className = {this.state.objects[i].key}
                     resizeHandleClasses = {{
                         bottomLeft:  this.state.objects[i].childClass,
@@ -165,16 +192,20 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <input onBlur = {(e) => {this.clearDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        <input onFocus = {(e) => {this.selectDiv(e)}} onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}} 
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        position: "absolute"
+                        }} 
                         value = {this.state.objects[i].value}/>
                 </Rnd>)
             }
             else if (this.state.objects[i].type === "LC") {
                 containerItems.push(<Rnd
                     size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    scale = {this.state.zoom}
+                    style = {{transform:"scale(" + this.state.zoom.toString() + ")"}}
                     position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
                     onDragStop= {(e,d) => {this.onDragStop(e,d)}}
                     onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
@@ -203,15 +234,19 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <div onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        <div onClick = {(e) => {this.selectDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}}>{this.state.objects[i].value}</div>
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        position: "absolute"
+                        }}>{this.state.objects[i].value}</div>
                 </Rnd>) 
             }
             else if (this.state.objects[i].type == "button") {
                 containerItems.push(<Rnd
                     size = {{width: this.state.objects[i].width, height: this.state.objects[i].height}}
+                    scale = {this.state.zoom}
+                    style = {{transform:"scale(" + this.state.zoom.toString() + ")"}}
                     position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
                     onDragStop= {(e,d) => {this.onDragStop(e,d)}}
                     onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
@@ -240,10 +275,12 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <Button onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        <Button onClick = {(e) => {this.selectDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}}>{this.state.objects[i].value}</Button>
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        position: "absolute"
+                        }}>{this.state.objects[i].value}</Button>
                 </Rnd>) 
             }
         }
@@ -264,10 +301,10 @@ class ListScreen extends Component {
                         </div>
                         <div class = "row">
                             <div class = "col s6">
-                                <a class="btn waves-effect waves-light red" onClick = {this.okzoomerin}><i class="material-icons">zoom_in</i></a>
+                                <a class="btn waves-effect waves-light red" onClick = {e => {this.okzoomerin(e)}}><i class="material-icons">zoom_in</i></a>
                             </div>
                             <div class = "col s6">
-                                <a class=" btn waves-effect waves-light red"onClick = {this.okzoomerout}><i class="material-icons">zoom_out</i></a>
+                                <a class=" btn waves-effect waves-light red"onClick = {e => {this.okzoomerout(e)}}><i class="material-icons">zoom_out</i></a>
                             </div>
                         </div>
                         <div class = "row">
@@ -291,7 +328,7 @@ class ListScreen extends Component {
                     </div>
                 </div>
                 <div class = "col s8">
-                    <div class = "edit-card-main card-panel white" onClick = {(e) => {this.unselectDivs(e)}}>
+                    <div class = "edit-card-main card-panel white" onClick = {() => {this.unselectDivs()}}>
                         <div className = "wireFrameContainer" style = {wireFrameStyle}>
                             {containerItems}
                         </div>

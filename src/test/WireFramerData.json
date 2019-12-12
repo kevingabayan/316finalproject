@@ -7,23 +7,10 @@
             "height": 4000,
             "timestamp": 2,
             "objects": [
-                {
-                    "width": 2000,
-                    "height": 2000,
-                    "textfield": [
-                        {
-                            "border_thickness": 2,
-                            "border_radius": 30,
-                            "x": 2000,
-                            "y": 2000,
-                            "width": 200,
-                            "height": 200,
-                            "value": "Weathering With You",
-                            "font_size": 14,
-                            "color": "#00FFFF"
-                        }
-                    ] 
-                }
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "ok", "type": "text", "fontSize": "15px", "borderColor": "black", 
+                "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "ok", "type": "button", "fontSize": "15px", "borderColor": "black", 
+                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
             ]
         },
         {
@@ -32,10 +19,12 @@
             "width": 3000,
             "height": 3000,
             "timestamp": 1,
-            "objects": [{
-                "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "active-pointer", "value": "ok", "type": "text", "style": [{"fontSize": "15px", "borderColor": "black", 
-                        "backgroundColor": "blue", "color": "black", "borderRadius": "", "borderWidth": "thick"}]
-                        }]
+            "objects": [
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "ok", "type": "text", "fontSize": "15px", "borderColor": "black", 
+                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "ok", "type": "button", "fontSize": "15px", "borderColor": "black", 
+                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
+            ]
         },
         {
             "key": 2,
@@ -44,23 +33,10 @@
             "height": 5000,
             "timestamp": 0,
             "objects": [
-                {
-                    "width": 2000,
-                    "height": 2000,
-                    "button": [
-                        {
-                            "border_thickness": 2,
-                            "border_radius": 30,
-                            "x": 2000,
-                            "y": 2000,
-                            "width": 200,
-                            "height": 200,
-                            "value": "SadBoy.exe",
-                            "font_size": 32,
-                            "color": "#00FFFF"
-                        }
-                    ] 
-                }
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "ok", "type": "text", "fontSize": "15px", "borderColor": "black", 
+                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "ok", "type": "button", "fontSize": "15px", "borderColor": "black", 
+                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
             ]
         }
     ]

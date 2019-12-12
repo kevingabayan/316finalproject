@@ -31,7 +31,7 @@ class DatabaseTester extends React.Component {
                         width: wireFramerJson.width,
                         height: wireFramerJson.height,
                         timestamp: wireFramerJson.timestamp,
-                        containers: wireFramerJson.containers
+                        objects: wireFramerJson.objects
                         }).then(() => {
                             console.log("DATABASE RESET");
                         }).catch((err) => {
