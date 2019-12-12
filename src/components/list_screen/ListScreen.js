@@ -17,7 +17,6 @@ class ListScreen extends Component {
         zoom: 1,
         changeSave: "disabled",
         changeDimensions: "disabled",
-        selectedDivBoolean: false,
         selectedDiv: "",
 
         width: this.props.wireFrame.width,
@@ -102,17 +101,27 @@ class ListScreen extends Component {
         this.setState({objects: tempobject});
     }
     onResizeStop = (e,direction,ref,delta,position) => {
-        console.log(ref);
+        e.stopPropagation();
         let objectindex = ref.className.charAt(0);
         if(objectindex == "b") {
             objectindex = ref.className.charAt((ref.target.className.length)-1);
         }
         let tempobject = this.state.objects;
-        tempobject[objectindex].width = ref.width;
-        tempobject[objectindex].height = ref.height;
+        tempobject[objectindex].width = ref.style.width;
+        tempobject[objectindex].height = ref.style.height;
         this.setState({objects: tempobject})
     }
-
+    unselectDivs = (e) => {
+        console.log("TRUE");
+    }
+    selectDiv = (e) => {
+        e.stopPropagation();
+        console.log("TRUETRUE");
+    }
+    clearDiv = (e) => {
+        e.stopPropagation();
+        console.log("FALSEFALSE");
+    }
     render() {
         const auth = this.props.auth;
         const wireFrameStyle = {
@@ -156,7 +165,7 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <input className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        <input onBlur = {(e) => {this.clearDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
                         borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}} 
@@ -194,7 +203,10 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <div className = {this.state.objects[i].key} style = {this.state.objects[i].style}>{this.state.objects[i].value}</div>
+                        <div onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
+                        backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}}>{this.state.objects[i].value}</div>
                 </Rnd>) 
             }
             else if (this.state.objects[i].type == "button") {
@@ -228,7 +240,10 @@ class ListScreen extends Component {
                     }}
                     bounds = {"parent"}
                     >
-                        <Button className = {this.state.objects[i].key} type="text" style = {this.state.objects[i].style}>{this.state.objects[i].value}</Button>
+                        <Button onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
+                        fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
+                        backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
+                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth}}>{this.state.objects[i].value}</Button>
                 </Rnd>) 
             }
         }
@@ -276,7 +291,7 @@ class ListScreen extends Component {
                     </div>
                 </div>
                 <div class = "col s8">
-                    <div class = "edit-card-main card-panel white">
+                    <div class = "edit-card-main card-panel white" onClick = {(e) => {this.unselectDivs(e)}}>
                         <div className = "wireFrameContainer" style = {wireFrameStyle}>
                             {containerItems}
                         </div>
