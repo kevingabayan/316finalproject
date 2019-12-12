@@ -67,6 +67,20 @@ class ListScreen extends Component {
         this.setState({zoom: this.state.zoom * 1/2});
     }
 
+    goHome = () => {
+        this.props.history.push("/");
+    }
+
+    goSave = () => {
+        let id = this.props.auth.uid;
+        const fireStore = getFirestore();
+        fireStore.collection('wireFrames').doc(this.props.wireFrame.id).update({
+            width: this.state.width,
+            height: this.state.height
+        });
+        this.props.history.push("/");
+    }
+
     render() {
         const auth = this.props.auth;
         const wireFrameStyle = {
@@ -88,10 +102,10 @@ class ListScreen extends Component {
 
                         <div class = "row">
                             <div class = "col s6">
-                                <a class={"waves-effect waves-light red btn " + this.state.changeSave}>Save</a>
+                                <a class={"waves-effect waves-light red btn " + this.state.changeSave} onClick = {this.goSave}>Save</a>
                             </div>
                             <div class = "col s6">
-                                <a class="waves-effect waves-light red btn">Close</a>
+                                <a class="waves-effect waves-light red btn" onClick = {this.goHome}>Close</a>
                             </div>
                         </div>
 
@@ -113,14 +127,14 @@ class ListScreen extends Component {
                         <br></br>
                         <div class = "row">
                             <div className="input-field">
-                                <label htmlFor="width" className="active black-text">Width [1/5 scaling] </label>
+                                <label htmlFor="width" className="active black-text">Width [1-5000] [.2x] </label>
                                 <input type="text" name="widthtext" id = "widthtext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.widthtext} />
                             </div>
                         </div>
 
                         <div class = "row">
                             <div className="input-field">
-                                <label htmlFor="height" className="active black-text">Height [1/5 scaling] </label>
+                                <label htmlFor="height" className="active black-text">Height [1-5000] [.2x] </label>
                                 <input type="text" name="heighttext" id = "heighttext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.heighttext} />
                             </div>
                         </div>
