@@ -65,6 +65,11 @@ div.banner {
   right: 0px;
 }
 
+.pointer {
+  color: grey;
+  background-color: grey;
+  opacity: 0.5;
+}
 .edit-card {
   height: 1000px;
 }

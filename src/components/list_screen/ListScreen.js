@@ -12,35 +12,68 @@ import {Rnd} from 'react-rnd';
 class ListScreen extends Component {
     
     state = {
-        width: this.props.wireFrame.width,
-        height: this.props.wireFrame.height,
         widthtext: this.props.wireFrame.width,
         heighttext: this.props.wireFrame.height,
         zoom: 1,
         changeSave: "disabled",
         changeDimensions: "disabled",
+        selectedDiv: "none",
+
+        width: this.props.wireFrame.width,
+        height: this.props.wireFrame.height,
         objects: [
             <Rnd
+                onDragStop= {e => {this.onDragStop(e)}}
+                className = "0"
+                resizeHandleClasses = {{
+                    bottomLeft: "pointer",
+                    bottomRight: "pointer",
+                    topRight: "pointer",
+                    topLeft: "pointer",
+                }}
+                resizeHandleComponent = {{
+                    bottomLeft: React.createElement('div', {id: 'pointer'}, " l"),
+                    bottomRight: React.createElement('div', {id: 'pointer'}, " l"),
+                    topRight: React.createElement('div', {id: 'pointer'}, " l"),
+                    topLeft: React.createElement('div', {id: 'pointer'}, " l")
+                }
+                }
+                bounds = {"parent"}
+                >
+                    <div className = "input-field">
+                        <input type="text" name="widthtext" id = "widthtext" value = "ok"/>
+                    </div>
+            </Rnd>,
+            <Rnd
+            onDragStop= {e => {this.onDragStop(e)}}
+            className = "0"
+            resizeHandleClasses = {{
+                bottomLeft: "pointer",
+                bottomRight: "pointer",
+                topRight: "pointer",
+                topLeft: "pointer",
+            }}
             resizeHandleComponent = {{
-                bottomLeft: React.createElement('div',null, 'XD'),
-                bottomRight: React.createElement('div',null, 'XD')
-
+                bottomLeft: React.createElement('div', {id: 'pointer'}, " l"),
+                bottomRight: React.createElement('div', {id: 'pointer'}, " l"),
+                topRight: React.createElement('div', {id: 'pointer'}, " l"),
+                topLeft: React.createElement('div', {id: 'pointer'}, " l")
             }
             }
             bounds = {"parent"}
-            style = {{
-                backgroundColor: "red"
-            }}
-            default={{
-                x: 0,
-                y: 0,
-                width: 200,
-                height: 200,
-            }}
             >
-            Rnd
+                coolbeans
             </Rnd>
         ]
+    }
+
+    selectDiv = (e) => {
+        console.log("AHHHHHHHHHHHH");
+    }
+
+    onDragStop = (e) => {
+        console.log(this.state.objects);
+        console.log(e.target);
     }
 
     handleDimensionChange = (e) => {
@@ -122,7 +155,6 @@ class ListScreen extends Component {
             <div class = "row">
                 <div class = "col s2">
                     <div class="edit-card card-panel teal">
-
                         <div class = "row">
                             <div class = "col s6">
                                 <a class={"waves-effect waves-light red btn " + this.state.changeSave} onClick = {this.goSave}>Save</a>
@@ -131,7 +163,6 @@ class ListScreen extends Component {
                                 <a class="waves-effect waves-light red btn" onClick = {this.goHome}>Close</a>
                             </div>
                         </div>
-
                         <div class = "row">
                             <div class = "col s6">
                                 <a class="btn waves-effect waves-light red" onClick = {this.okzoomerin}><i class="material-icons">zoom_in</i></a>
@@ -140,13 +171,11 @@ class ListScreen extends Component {
                                 <a class=" btn waves-effect waves-light red"onClick = {this.okzoomerout}><i class="material-icons">zoom_out</i></a>
                             </div>
                         </div>
-                        
                         <div class = "row">
                             <div class = "col s12">
                                 <a class={"waves-effect waves-light red btn " + this.state.changeDimensions} onClick = {this.updateDimensions}><i class="material-icons right">crop_square</i>Update Dim.</a>
                             </div>
                         </div>
-
                         <br></br>
                         <div class = "row">
                             <div className="input-field">
@@ -154,14 +183,12 @@ class ListScreen extends Component {
                                 <input type="text" name="widthtext" id = "widthtext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.widthtext} />
                             </div>
                         </div>
-
                         <div class = "row">
                             <div className="input-field">
                                 <label htmlFor="height" className="active black-text">Height [1-5000] [.2x] </label>
                                 <input type="text" name="heighttext" id = "heighttext" onChange = {e => {this.handleDimensionChange(e)}} value = {this.state.heighttext} />
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class = "col s8">
