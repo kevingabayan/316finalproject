@@ -19,6 +19,7 @@ class ListScreen extends Component {
         changeDimensions: "disabled",
         selectedDiv: "",
         resizePrevention: false,
+        tempo: false,
 
         width: this.props.wireFrame.width,
         height: this.props.wireFrame.height,
@@ -68,6 +69,12 @@ class ListScreen extends Component {
         if(prevState.zoom != this.state.zoom) {
             this.unselectDivs()
         }
+        if(this.state.tempo) {
+            this.okiedokie()
+        }
+    }
+    okiedokie = () => {
+        this.setState({objects: this.state.objects, tempo: false})
     }
 
     okzoomerin = (e) => {
@@ -89,12 +96,11 @@ class ListScreen extends Component {
         const fireStore = getFirestore();
         fireStore.collection('wireFrames').doc(this.props.wireFrame.id).update({
             width: this.state.width,
-            height: this.state.height
+            height: this.state.height,
+            objects: this.state.objects
         });
         this.props.history.push("/");
     }
-
-
     onDragStop = (e, d) => {
         e.stopPropagation();
         let tempobject = this.state.objects;
@@ -102,7 +108,7 @@ class ListScreen extends Component {
         tempobject[this.state.selectedDiv].x = d.x;
         tempobject[this.state.selectedDiv].y = d.y;
         }
-        this.setState({objects: tempobject});
+        this.setState({objects: tempobject, changeSave: ""});
     }
     onResizeStop = (e,direction,ref,delta,position) => {
         e.stopPropagation();
@@ -112,9 +118,8 @@ class ListScreen extends Component {
         tempobject[this.state.selectedDiv].height = ref.style.height;
         tempobject[this.state.selectedDiv].x = position.x;
         tempobject[this.state.selectedDiv].y = position.y;
-        this.setState({objects: tempobject, resizePrevention: true})
+        this.setState({objects: tempobject, resizePrevention: true, tempo: true, changeSave: ""})
         }
-        console.log(position);
         
     }
     unselectDivs = () => {
@@ -153,7 +158,7 @@ class ListScreen extends Component {
             transform: "scale(" + this.state.zoom.toString() + ")",
             transformOrigin: "0 0",
             borderStyle: 'solid',
-            borderWidth: 'thick',
+            borderWidth: 'medium',
         }
         const containerItems = [];
         for(let i = 0; i < this.state.objects.length; i++) {
