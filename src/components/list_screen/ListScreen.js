@@ -3,10 +3,11 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import {Button, Icon} from 'react-materialize';
+import {Button} from 'react-materialize';
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
-import Draggable from 'react-draggable';
+import {Rnd} from 'react-rnd';
+
 
 class ListScreen extends Component {
     
@@ -17,7 +18,29 @@ class ListScreen extends Component {
         heighttext: this.props.wireFrame.height,
         zoom: 1,
         changeSave: "disabled",
-        changeDimensions: "disabled"
+        changeDimensions: "disabled",
+        objects: [
+            <Rnd
+            resizeHandleComponent = {{
+                bottomLeft: React.createElement('div',null, 'XD'),
+                bottomRight: React.createElement('div',null, 'XD')
+
+            }
+            }
+            bounds = {"parent"}
+            style = {{
+                backgroundColor: "red"
+            }}
+            default={{
+                x: 0,
+                y: 0,
+                width: 200,
+                height: 200,
+            }}
+            >
+            Rnd
+            </Rnd>
+        ]
     }
 
     handleDimensionChange = (e) => {
@@ -144,7 +167,7 @@ class ListScreen extends Component {
                 <div class = "col s8">
                     <div class = "edit-card-main card-panel white">
                         <div className = "wireFrameContainer" style = {wireFrameStyle}>
-                            
+                            {this.state.objects}
                         </div>
                     </div>
                 </div>
