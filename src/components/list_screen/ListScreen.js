@@ -119,6 +119,12 @@ class ListScreen extends Component {
         tempobjects[this.state.selectedDiv].fontSize = target.value;
         this.setState({objects: tempobjects});
     }
+    handleRadiusChange = (e) => {
+        const {target} = e;
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].borderRadius = target.value;
+        this.setState({objects: tempobjects});
+    }
     handleBackgroundColorChange(color, event) {
         let tempobjects = this.state.objects;
         tempobjects[this.state.selectedDiv].backgroundColor = color.hex;
@@ -141,19 +147,24 @@ class ListScreen extends Component {
         if(!isNaN(target.value)) {
             if(target.value >= 0 && target.value <= 3) {
                 if(target.value == 0) {
+                    tempobjects[this.state.selectedDiv].borderStyle = ""
                     tempobjects[this.state.selectedDiv].borderWidth = "";
                 }
                 if(target.value == 1) {
+                    tempobjects[this.state.selectedDiv].borderStyle = "solid";
                     tempobjects[this.state.selectedDiv].borderWidth = "thin";
                 }
                 if(target.value == 2) {
+                    tempobjects[this.state.selectedDiv].borderStyle = "solid";
                     tempobjects[this.state.selectedDiv].borderWidth = "medium";
                 }
                 if(target.value == 3) {
+                    tempobjects[this.state.selectedDiv].borderStyle = "solid";
                     tempobjects[this.state.selectedDiv].borderWidth = "thick";
                 }
             }
         }
+        this.setState({objects: tempobjects});
     }
     handleDimensionChange = (e) => {
         const { target } = e;
@@ -167,7 +178,7 @@ class ListScreen extends Component {
     }
     handleTranslationThickness() {
         console.log(this.state.objects[this.state.selectedDiv].borderWidth);
-        if (this.state.objects[this.state.selectedDiv].borderStyle == ""){
+        if (this.state.objects[this.state.selectedDiv].borderStyle != "solid"){
             return 0;
         } 
         else if(this.state.objects[this.state.selectedDiv].borderWidth == "thin") {
@@ -284,7 +295,6 @@ class ListScreen extends Component {
         }
     }
     addContainer = () => {
-        this.unselectDivs();
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
@@ -309,12 +319,11 @@ class ListScreen extends Component {
         this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addLabel = () => {
-        this.unselectDivs();
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
         {borderColor: "#000000",
-        borderRadius: "30px",
+        borderRadius: "0px",
         backgroundColor: "#ffffff",
         borderWidth: "medium",
         borderStyle: "",
@@ -333,13 +342,12 @@ class ListScreen extends Component {
         this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addButton = () => {
-        this.unselectDivs();
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
         {borderColor: "#000000",
         backgroundColor: "#2bbbad",
-        borderRadius: "",
+        borderRadius: "0px",
         borderWidth: "medium",
         borderStyle: "",
         childClass: "pointer",
@@ -357,12 +365,11 @@ class ListScreen extends Component {
         this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addTextfield = () => {
-        this.unselectDivs();
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
         {borderColor: "black",
-        borderRadius: "",
+        borderRadius: "0px",
         borderWidth: "medium",
         borderStyle: "",
         childClass: "pointer",
@@ -580,6 +587,14 @@ class ListScreen extends Component {
                 <div className="input-field">
                     <label htmlFor="width" className="active black-text">Border Th. [0-3]</label>
                     <input type="text" name="selected" id = "selected" onChange = {e => this.handleBorderThicknessChange(e)} value = {this.handleTranslationThickness()}/>
+                </div>
+                </div>
+            )
+            selectedItems.push(
+                <div class = "row">
+                <div className="input-field">
+                    <label htmlFor="width" className="active black-text">Border Rad. [px]</label>
+                    <input type="text" name="selected" id = "selected" onChange = {e => {this.handleRadiusChange(e)}} value = {this.state.objects[this.state.selectedDiv].borderRadius} />
                 </div>
                 </div>
             )
