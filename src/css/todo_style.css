@@ -93,13 +93,9 @@ div.banner {
   cursor:pointer
 }
 .modal {
-  top: 100px;
 }
 
 .modal.open {
-  visibility: visible;
-  opacity: 1;
-  animation: mymove 1s;
 }
 
 @keyframes mymove {

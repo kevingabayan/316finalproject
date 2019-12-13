@@ -6,6 +6,8 @@ import { firestoreConnect } from 'react-redux-firebase';
 import WireFrameLinks from './WireFrameLinks'
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
+import {Modal} from 'react-materialize';
+
 
 class HomeScreen extends Component {
     handleNewList = () => {
@@ -23,6 +25,13 @@ class HomeScreen extends Component {
         .then(function(wireFramer) {
             newbind.props.history.push("/wireFramer/" + wireFramer.id);
         })
+    }
+
+    handleCancel = () => {
+
+    }
+    handleDeletion = () => {
+
     }
 
     render() {

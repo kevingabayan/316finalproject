@@ -1,17 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import WireFrameCard from './WireFrameCard';
-import { getFirestore } from 'redux-firestore';
 class WireFrameLinks extends React.Component {
-
-    handleTop(id) {
-        var date = new Date();
-        const fireStore = getFirestore();
-        console.log(id);
-        fireStore.collection('wireFrames').doc(id).update({timestamp: date.getTime()});
-    }
 
     render() {
         const auth = this.props.auth;
@@ -22,10 +13,8 @@ class WireFrameLinks extends React.Component {
         return (
             <div className="todo-lists section">
                 {wireFrames && wireFrames.slice(0).filter(wireFrame => wireFrame.owner == auth.uid).reverse().map(wireFrames => (
-                    <Link to={'/wireFramer/' + wireFrames.id} onClick = {this.handleTop.bind(this, wireFrames.id)} key={wireFrames.id}>
-                        <WireFrameCard wireFrames={wireFrames} />
-                    </Link>
-                ))}
+                    <WireFrameCard wireFrames={wireFrames} />
+                ))}    
             </div>
         );
     }
