@@ -42,7 +42,7 @@ class ListScreen extends Component {
     }
     handleKey = (event) => {
         event.stopPropagation();
-
+        if(event.crtlKey) {
             if((event.which === 68))  {
                 if(this.state.selectedDiv != "") {
                     let tempobjects = this.state.objects;
@@ -75,7 +75,7 @@ class ListScreen extends Component {
                     this.setState({selectedDiv: tempobjects.length, objects: newobjects});
                 }
             }
-        //}
+        }
         else if ((event.which === 46)){
             if(this.state.selectedDiv != "") {
                 let tempobjects = this.state.objects;
@@ -106,6 +106,18 @@ class ListScreen extends Component {
           [target.id]: target.value,
         }));
       }
+    handleSelectedChange = (e) => {
+        const {target} = e;
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].value = target.value;
+        this.setState({objects: tempobjects});
+    }
+    handleFontChange = (e) => {
+        const {target} = e;
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].fontSize = target.value;
+        this.setState({objects: tempobjects});
+    }
     handleDimensionChange = (e) => {
         const { target } = e;
         if(!isNaN(target.value)) {   
@@ -158,7 +170,7 @@ class ListScreen extends Component {
         this.props.history.push("/");
     }
     goSave = () => {
-        let id = this.props.auth.uid;
+        this.unselectDivs();
         const fireStore = getFirestore();
         fireStore.collection('wireFrames').doc(this.props.wireFrame.id).update({
             width: this.state.width,
@@ -198,6 +210,9 @@ class ListScreen extends Component {
         }
         if(objectindex == "b") {
             objectindex = e.target.className.charAt((e.target.className.length)-1);
+            if(e.target.className.charAt((e.target.className.length)-2) >= '0' && e.target.className.charAt((e.target.className.length)-2) <= '9') {
+                objectindex = e.target.className.substring(((e.target.className.length)-2),((e.target.className.length)))
+            }
         }
         let tempobject = this.state.objects;
         tempobject[objectindex].childClass = "active-pointer";
@@ -448,6 +463,25 @@ class ListScreen extends Component {
                 </Rnd>) 
             }
         }
+        const selectedItems = [];
+        if(this.state.selectedDiv != "") {
+            selectedItems.push(
+                <div class = "row">
+                    <div className="input-field">
+                        <label htmlFor="width" className="active black-text">Selected Text</label>
+                        <input type="text" name="selected" id = "selected" onChange = {e => {this.handleSelectedChange(e)}} value = {this.state.objects[this.state.selectedDiv].value} />
+                    </div>
+                </div>
+            );
+            selectedItems.push(
+                <div class = "row">
+                <div className="input-field">
+                    <label htmlFor="width" className="active black-text">Text Font [px]</label>
+                    <input type="text" name="selected" id = "selected" onChange = {e => {this.handleFontChange(e)}} value = {this.state.objects[this.state.selectedDiv].fontSize} />
+                </div>
+                </div>
+            )
+        } 
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
@@ -526,8 +560,7 @@ class ListScreen extends Component {
                 </div>
                 <div class = "col s2">
                     <div class="edit-card card-panel teal">
-                        <span class="white-text">
-                        </span>
+                        {selectedItems}
                     </div>
                 </div>
             </div>
