@@ -42,28 +42,52 @@ class ListScreen extends Component {
     }
     handleKey = (event) => {
         event.stopPropagation();
-        if(event.ctrlKey) {
-            // D
+
             if((event.which === 68))  {
                 if(this.state.selectedDiv != "") {
-                    console.log("DUPLICATE");
+                    let tempobjects = this.state.objects;
+                    let tempkey = this.state.selectedDiv;
+                    this.unselectDivs();
+                    let newobjects = [];
+                    for(let i = 0; i < tempobjects.length; i++) {
+                        newobjects.push(tempobjects[i]);
+                    }
+                    var container = 
+                    {borderColor: tempobjects[tempkey].borderColor,
+                    borderRadius: tempobjects[tempkey].borderRadius,
+                    borderWidth: tempobjects[tempkey].borderWidth,
+                    borderStyle: tempobjects[tempkey].borderStyle,
+                    childClass: "active-pointer",
+                    color: tempobjects[tempkey].color,
+                    fontSize: tempobjects[tempkey].fontSize,
+                    height: tempobjects[tempkey].height,
+                    key: tempobjects.length,
+                    type: tempobjects[tempkey].type,
+                    value: tempobjects[tempkey].value,
+                    width: tempobjects[tempkey].width,
+                    x: tempobjects[tempkey].x + 100,
+                    y: tempobjects[tempkey].y + 100
+                    }
+                    newobjects.push(container);
+                    for(let i = 0; i < newobjects.length; i++) {
+                        newobjects[i].key = (i.toString());
+                    }
+                    this.setState({selectedDiv: tempobjects.length, objects: newobjects});
                 }
             }
-        }
+        //}
         else if ((event.which === 46)){
             if(this.state.selectedDiv != "") {
                 let tempobjects = this.state.objects;
                 let tempkey = this.state.selectedDiv;
                 let newobjects = [];
-                console.log(tempobjects);
-                console.log(tempkey);
                 for(let i = 0; i < tempobjects.length; i++) {
                     if(i != tempkey) {
                         newobjects.push(tempobjects[i]);
                     }
                 }
                 for(let i = 0; i < newobjects.length; i++) {
-                    newobjects.key = i;
+                    newobjects[i].key = (i.toString());
                 }
                 console.log(newobjects);
                 this.setState({objects: newobjects}, this.unselectDivs());
@@ -169,6 +193,9 @@ class ListScreen extends Component {
         e.stopPropagation();
         this.unselectDivs();
         let objectindex = e.target.className.charAt(0);
+        if(e.target.className.charAt(1) >= '0' && e.target.className.charAt(1) <= '9') {
+            objectindex = e.target.className.substring(0,2);
+        }
         if(objectindex == "b") {
             objectindex = e.target.className.charAt((e.target.className.length)-1);
         }
