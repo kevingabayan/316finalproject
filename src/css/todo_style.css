@@ -89,13 +89,13 @@ div.banner {
   height: 1000px;
   overflow: auto;
 }
-.todo-list-link:hover {
-  cursor:pointer
-}
-.modal {
+
+.wireFrameName {
+
 }
 
-.modal.open {
+.wireFrameName:hover {
+  cursor: pointer;
 }
 
 @keyframes mymove {

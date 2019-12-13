@@ -45,6 +45,7 @@ class ListScreen extends Component {
         event.stopPropagation();
         if(event.ctrlKey) {
             if((event.which === 68))  {
+                event.preventDefault();
                 if(this.state.selectedDiv != "") {
                     let tempobjects = this.state.objects;
                     let tempkey = this.state.selectedDiv;
@@ -58,6 +59,7 @@ class ListScreen extends Component {
                     borderRadius: tempobjects[tempkey].borderRadius,
                     borderWidth: tempobjects[tempkey].borderWidth,
                     borderStyle: tempobjects[tempkey].borderStyle,
+                    backgroundColor: tempobjects[tempkey].backgroundColor,
                     childClass: "active-pointer",
                     color: tempobjects[tempkey].color,
                     fontSize: tempobjects[tempkey].fontSize,
@@ -66,6 +68,7 @@ class ListScreen extends Component {
                     type: tempobjects[tempkey].type,
                     value: tempobjects[tempkey].value,
                     width: tempobjects[tempkey].width,
+                    position: tempobjects[tempkey].position,
                     x: tempobjects[tempkey].x + 100,
                     y: tempobjects[tempkey].y + 100
                     }
@@ -90,7 +93,6 @@ class ListScreen extends Component {
                 for(let i = 0; i < newobjects.length; i++) {
                     newobjects[i].key = (i.toString());
                 }
-                console.log(newobjects);
                 this.setState({objects: newobjects}, this.unselectDivs());
             }
         }
@@ -143,7 +145,6 @@ class ListScreen extends Component {
     handleBorderThicknessChange = (e) => {
         const {target} = e;
         let tempobjects = this.state.objects;
-        console.log(target.value);
         if(!isNaN(target.value)) {
             if(target.value >= 0 && target.value <= 3) {
                 if(target.value == 0) {
@@ -177,7 +178,6 @@ class ListScreen extends Component {
         }
     }
     handleTranslationThickness() {
-        console.log(this.state.objects[this.state.selectedDiv].borderWidth);
         if (this.state.objects[this.state.selectedDiv].borderStyle != "solid"){
             return 0;
         } 
@@ -241,10 +241,10 @@ class ListScreen extends Component {
             objects: this.state.objects,
             name: this.state.name
         });
+        console.log(JSON.stringify(this.state.objects))
         this.props.history.push("/");
     }
     onDragStop = (e, d) => {
-        console.log(JSON.stringify(this.state.objects))
         e.stopPropagation();
         let tempobject = this.state.objects;
         if(this.state.selectedDiv != "") { 
@@ -270,12 +270,20 @@ class ListScreen extends Component {
         this.unselectDivs();
         let objectindex = e.target.className.charAt(0);
         if(e.target.className.charAt(1) >= '0' && e.target.className.charAt(1) <= '9') {
-            objectindex = e.target.className.substring(0,2);
+            var loopi = 1;
+            while(e.target.className.charAt(loopi+1) >= '0' && e.target.className.charAt(loopi+1) <= '9') {
+                loopi++;
+            }
+            objectindex = e.target.className.substring(0,(loopi+1));
         }
         if(objectindex == "b") {
             objectindex = e.target.className.charAt((e.target.className.length)-1);
             if(e.target.className.charAt((e.target.className.length)-2) >= '0' && e.target.className.charAt((e.target.className.length)-2) <= '9') {
-                objectindex = e.target.className.substring(((e.target.className.length)-2),((e.target.className.length)))
+                var loopj = 2;
+                while(e.target.className.charAt((e.target.className.length)-(loopj+1)) >= '0' && e.target.className.charAt((e.target.className.length)-(loopj+1)) <= '9') {
+                    loopj++;
+                }
+                objectindex = e.target.className.substring(((e.target.className.length)-loopj),((e.target.className.length)))
             }
         }
         let tempobject = this.state.objects;
@@ -283,7 +291,6 @@ class ListScreen extends Component {
         this.setState({selectedDiv: objectindex, objects: tempobject});
     }
     unselectDivs = () => {
-        console.log(this.state.selectedDiv);
         if(this.state.resizePrevention) {
             this.setState({resizePrevention: false});
         }
@@ -336,6 +343,7 @@ class ListScreen extends Component {
         type: "LC",
         width: "400px",
         value: "DEFAULT",
+        position: "absolute",
         x: 0,
         y: 0
         }
@@ -359,6 +367,7 @@ class ListScreen extends Component {
         type: "button",
         width: "200px",
         value: "DEFAULT",
+        position: "absolute",
         x: 0,
         y: 0
         }
@@ -382,6 +391,7 @@ class ListScreen extends Component {
         type: "text",
         width: "300px",
         value: "DEFAULT",
+        position: "absolute",
         x: 0,
         y: 0
         }

@@ -36,7 +36,6 @@ class HomeScreen extends Component {
 
     render() {
         const wireFrames = this.props.todoLists;
-        console.log(wireFrames);
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }

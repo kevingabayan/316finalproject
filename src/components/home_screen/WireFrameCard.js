@@ -8,13 +8,11 @@ class WireFrameCard extends React.Component {
     handleTop(id) {
         var date = new Date();
         const fireStore = getFirestore();
-        console.log(id);
         fireStore.collection('wireFrames').doc(id).update({timestamp: date.getTime()});
     }
 
     handleDeletion(id)  {
-        const fireStore = getFirestore();
-        console.log(id);
+        const fireStore = getFirestore();;
         fireStore.collection('wireFrames').doc(id).delete();
     }
 
@@ -25,7 +23,7 @@ class WireFrameCard extends React.Component {
                 <div className="card-content blue lighten-3 grey-text text-darken-3">
                     <div className = "row">
                     <Link to={'/wireFramer/' + wireFrames.id} onClick = {this.handleTop.bind(this, wireFrames.id)} key={wireFrames.id}>
-                    <span className="col s10 card-title">{wireFrames.name}</span>
+                    <span className="wireFrameName col s10 card-title">{wireFrames.name}</span>
                     </Link>
                     <Button data-target={wireFrames.id} className = "modal-trigger col s2 black lighten-3">X</Button>
                     </div>
