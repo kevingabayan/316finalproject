@@ -34,6 +34,42 @@ class ListScreen extends Component {
             this.okiedokie()
         }
     }
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKey = this.handleKey.bind(this), false);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKey, false);
+    }
+    handleKey = (event) => {
+        event.stopPropagation();
+        if(event.ctrlKey) {
+            // D
+            if((event.which === 68))  {
+                if(this.state.selectedDiv != "") {
+                    console.log("DUPLICATE");
+                }
+            }
+        }
+        else if ((event.which === 46)){
+            if(this.state.selectedDiv != "") {
+                let tempobjects = this.state.objects;
+                let tempkey = this.state.selectedDiv;
+                let newobjects = [];
+                console.log(tempobjects);
+                console.log(tempkey);
+                for(let i = 0; i < tempobjects.length; i++) {
+                    if(i != tempkey) {
+                        newobjects.push(tempobjects[i]);
+                    }
+                }
+                for(let i = 0; i < newobjects.length; i++) {
+                    newobjects.key = i;
+                }
+                console.log(newobjects);
+                this.setState({objects: newobjects}, this.unselectDivs());
+            }
+        }
+    }
     okiedokie = () => {
         this.setState({objects: this.state.objects, tempo: false})
     }
@@ -92,7 +128,7 @@ class ListScreen extends Component {
     }
     okzoomerout = (e) => {
         let ok = this.state.zoom * 1/2;
-        this.setState({zoom: ok}, console.log(this.state.zoom));
+        this.setState({zoom: ok});
     }
     goHome = () => {
         this.props.history.push("/");
@@ -141,6 +177,7 @@ class ListScreen extends Component {
         this.setState({selectedDiv: objectindex, objects: tempobject});
     }
     unselectDivs = () => {
+        console.log(this.state.selectedDiv);
         if(this.state.resizePrevention) {
             this.setState({resizePrevention: false});
         }
@@ -151,7 +188,6 @@ class ListScreen extends Component {
         }
         this.setState({selectedDiv: "", objects: tempobject});
         }
-        console.log(this.state.zoom);
     }
     addContainer = () => {
         this.unselectDivs();
