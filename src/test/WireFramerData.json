@@ -7,10 +7,10 @@
             "height": 4000,
             "timestamp": 2,
             "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "black", 
-                "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
+                "backgroundColor": "", "color": "#000000", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
+                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         },
         {
@@ -20,10 +20,10 @@
             "height": 3000,
             "timestamp": 1,
             "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "McKilla", "type": "text", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Gorilla", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black","borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
+                    "backgroundColor": "", "color": "#000000", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
+                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         },
         {
@@ -33,10 +33,10 @@
             "height": 5000,
             "timestamp": 0,
             "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Sad", "type": "text", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Frame", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black","borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
+                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
+                    "backgroundColor": "", "color": "#000000", "borderRadius": "", "borderWidth": "thick"},
+                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
+                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         }
     ]

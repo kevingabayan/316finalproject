@@ -7,7 +7,8 @@ import {Button} from 'react-materialize';
 import { getFirestore } from 'redux-firestore';
 import { withRouter} from 'react-router-dom';
 import {Rnd} from 'react-rnd';
-
+import {SketchPicker} from 'react-color'
+import reactCSS from 'reactcss'
 
 class ListScreen extends Component {
     
@@ -118,6 +119,22 @@ class ListScreen extends Component {
         tempobjects[this.state.selectedDiv].fontSize = target.value;
         this.setState({objects: tempobjects});
     }
+    handleBackgroundColorChange(color, event) {
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].backgroundColor = color.hex;
+        this.setState({objects: tempobjects});
+    }
+    handleBorderColorChange(color, event) {
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].borderColor = color.hex;
+        this.setState({objects: tempobjects});
+    }
+    handleTextColorChange(color, event) {
+        let tempobjects = this.state.objects;
+        tempobjects[this.state.selectedDiv].color = color.hex;
+        this.setState({objects: tempobjects});
+    }
+
     handleDimensionChange = (e) => {
         const { target } = e;
         if(!isNaN(target.value)) {   
@@ -236,12 +253,13 @@ class ListScreen extends Component {
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
-        {borderColor: "black",
+        {borderColor: "#000000",
         borderRadius: "30px",
+        backgroundColor: "#ffffff",
         borderWidth: "medium",
         borderStyle: "solid",
         childClass: "pointer-active",
-        color: "blue",
+        color: "#000000",
         fontSize: "15px",
         height: "200px",
         key: tempobjects.length,
@@ -249,7 +267,8 @@ class ListScreen extends Component {
         value: "",
         width: "400px",
         x: 0,
-        y: 0
+        y: 0,
+        position: 'absolute'
         }
         tempobjects.push(container);
         this.setState({objects: tempobjects, selectedDiv: templength})
@@ -259,12 +278,13 @@ class ListScreen extends Component {
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
-        {borderColor: "black",
+        {borderColor: "#000000",
         borderRadius: "30px",
+        backgroundColor: "#ffffff",
         borderWidth: "medium",
         borderStyle: "",
         childClass: "pointer-active",
-        color: "black",
+        color: "#000000",
         fontSize: "15px",
         height: "200px",
         key: tempobjects.length,
@@ -282,12 +302,13 @@ class ListScreen extends Component {
         var tempobjects = this.state.objects;
         let templength = tempobjects.length;
         var container = 
-        {borderColor: "black",
+        {borderColor: "#000000",
+        backgroundColor: "#2bbbad",
         borderRadius: "",
         borderWidth: "medium",
         borderStyle: "",
         childClass: "pointer-active",
-        color: "black",
+        color: "#000000",
         fontSize: "15px",
         height: "50px",
         key: tempobjects.length,
@@ -313,6 +334,7 @@ class ListScreen extends Component {
         color: "black",
         fontSize: "15px",
         height: "50px",
+        backgroundColor: "#ffffff",
         key: tempobjects.length,
         type: "text",
         width: "300px",
@@ -463,6 +485,13 @@ class ListScreen extends Component {
                 </Rnd>) 
             }
         }
+        const styles = reactCSS({
+            'default': {
+              card: {
+                  width: "150px"
+              },
+            },
+          })
         const selectedItems = [];
         if(this.state.selectedDiv != "") {
             selectedItems.push(
@@ -479,6 +508,36 @@ class ListScreen extends Component {
                     <label htmlFor="width" className="active black-text">Text Font [px]</label>
                     <input type="text" name="selected" id = "selected" onChange = {e => {this.handleFontChange(e)}} value = {this.state.objects[this.state.selectedDiv].fontSize} />
                 </div>
+                </div>
+            )
+            selectedItems.push( 
+                <div class = "row">
+                <div class = "section center-align">Background Color</div>
+                </div>
+            )
+            selectedItems.push(
+                <div class = "row">
+                <SketchPicker color = {this.state.objects[this.state.selectedDiv].backgroundColor} onChangeComplete = {e => this.handleBackgroundColorChange(e)} width = ""></SketchPicker>
+                </div>
+            )
+            selectedItems.push( 
+                <div class = "row">
+                <div class = "section center-align">Border Color</div>
+                </div>
+            )
+            selectedItems.push(
+                <div class = "row">
+                <SketchPicker color = {this.state.objects[this.state.selectedDiv].borderColor} onChangeComplete = {e => this.handleBorderColorChange(e)} width = ""></SketchPicker>
+                </div>
+            )
+            selectedItems.push( 
+                <div class = "row">
+                <div class = "section center-align">Text Color</div>
+                </div>
+            )
+            selectedItems.push(
+                <div class = "row">
+                <SketchPicker color = {this.state.objects[this.state.selectedDiv].color} onChangeComplete = {e => this.handleTextColorChange(e)} width = ""></SketchPicker>
                 </div>
             )
         } 
@@ -559,7 +618,7 @@ class ListScreen extends Component {
                     </div>
                 </div>
                 <div class = "col s2">
-                    <div class="edit-card card-panel teal">
+                    <div class="optionsMenu edit-card card-panel teal">
                         {selectedItems}
                     </div>
                 </div>

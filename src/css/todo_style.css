@@ -55,6 +55,13 @@ div.banner {
   width: 185px;
 }
 
+.sketch-picker {
+  width: "";
+}
+
+.optionsMenu {
+  overflow: auto;
+}
 #child {
   opacity: 0.0;
   right: -40px;
