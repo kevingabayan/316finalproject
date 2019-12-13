@@ -13,15 +13,25 @@
         {
             "key": 1,
             "name": "The Killa of Gorillas",
-            "width": 3000,
-            "height": 3000,
+            "width": 4700,
+            "height": 4700,
             "timestamp": 1,
-            "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
-                    "backgroundColor": "", "color": "#000000", "borderRadius": "0px", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
-                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "0px", "borderWidth": "thick"}
-            ]
+            "objects": 
+               [{"backgroundColor":"#ffffff","borderColor":"#000000","borderRadius":"30px","borderStyle":"solid","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"902px","key":"0","position":"absolute","type":"LC","value":"","width":"262px","x":19,"y":17},
+                {"backgroundColor":"#ffffff","borderColor":"#000000","borderRadius":"30px","borderStyle":"solid","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"902px","key":"1","position":"absolute","type":"LC","value":"","width":"262px","x":662,"y":18},
+                {"backgroundColor":"#ffffff","borderColor":"#d0021b","borderRadius":"0px","borderStyle":"","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"27px","key":"2","position":"absolute","type":"LC","value":"CSE 316 Top Scorers","width":"197px","x":43,"y":39},
+                {"backgroundColor":"#ffffff","borderColor":"#d0021b","borderRadius":"0px","borderStyle":"","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"33px","key":"3","position":"absolute","type":"LC","value":"CSE 316 Anime Betrayals","width":"247px","x":673,"y":38},
+                {"backgroundColor":"#ffffff","borderColor":"#000000","borderRadius":"30px","borderStyle":"solid","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"896px","key":"4","position":"absolute","type":"LC","value":"","width":"360px","x":294,"y":20},
+                {"backgroundColor":"#ffffff","borderColor":"#000000","borderRadius":"0px","borderStyle":"","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"43px","key":"5","position":"absolute","type":"LC","value":"CSE 316 Starcraft Ladder","width":"271px","x":341,"y":35},
+                {"backgroundColor":"#8b572a","borderColor":"#9b9b9b","borderRadius":"30px","borderStyle":"solid","borderWidth":"thick","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"6","position":"absolute","type":"LC","value":"McKillaGorilla","width":"188px","x":386,"y":82},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"7","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":386,"y":167},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"8","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":384,"y":249},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"9","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":381,"y":329},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"10","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":384,"y":406.0000305175781},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"11","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":384,"y":504.0000305175781},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"12","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":382,"y":612.0000305175781},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"13","type":"LC","value":"McKillaGorilla","width":"188px","position":"absolute","x":379,"y":705.0000305175781},
+                {"borderColor":"#9b9b9b","borderRadius":"30px","borderWidth":"thick","borderStyle":"solid","backgroundColor":"#8b572a","childClass":"pointer","color":"#f5a623","fontSize":"15px","height":"60px","key":"14","type":"LC","value":"joe","width":"188px","position":"absolute","x":381,"y":805.0000305175781}]
         },
         {
             "key": 2,
@@ -29,12 +39,10 @@
             "width": 5000,
             "height": 5000,
             "timestamp": 0,
-            "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
-                    "backgroundColor": "", "color": "#000000", "borderRadius": "0px", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
-                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "0px", "borderWidth": "thick"}
-            ]
+            "objects": [{"borderColor":"#f5a623","borderRadius":"50px","backgroundColor":"#7ed321","borderWidth":"thick","borderStyle":"solid","childClass":"pointer","color":"#9b9b9b","fontSize":"50px","height":"1000px","key":"0","type":"LC","value":"I am the Saddest Frame.","width":"1000px","x":0,"y":0,"position":"absolute"},
+                {"borderColor":"#000000","borderRadius":"0px","backgroundColor":"#7ed321","borderWidth":"medium","borderStyle":"","childClass":"pointer","color":"#000000","fontSize":"15px","height":"68px","key":"1","type":"LC","width":"79px","value":"i ","position":"absolute","x":135,"y":192.99998474121094},
+                {"borderColor":"black","borderRadius":"0px","borderWidth":"medium","borderStyle":"","childClass":"pointer","color":"black","fontSize":"15px","height":"50px","backgroundColor":"#7ed321","key":"2","type":"text","width":"300px","value":"am procrastinating","position":"absolute","x":198,"y":200},
+                {"borderColor":"#000000","borderRadius":"0px","borderWidth":"medium","borderStyle":"","backgroundColor":"#4a4a4a","childClass":"pointer","color":"#d0021b","fontSize":"15px","height":"24px","key":"3","type":"LC","value":"for my other finals.","width":"229px","position":"absolute","x":509,"y":222.99998474121094}]
         }
     ]
 }

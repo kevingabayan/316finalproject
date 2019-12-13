@@ -551,7 +551,7 @@ class ListScreen extends Component {
                 <div class = "row">
                     <div className="input-field">
                         <label htmlFor="width" className="active black-text">Selected Text</label>
-                        <input type="text" name="selected" id = "selected" onChange = {e => {this.handleSelectedChange(e)}} value = {this.state.objects[this.state.selectedDiv].value} />
+                        <input class= "active" type="text" name="selected" id = "selected" onChange = {e => {this.handleSelectedChange(e)}} value = {this.state.objects[this.state.selectedDiv].value} />
                     </div>
                 </div>
             );
@@ -559,7 +559,7 @@ class ListScreen extends Component {
                 <div class = "row">
                 <div className="input-field">
                     <label htmlFor="width" className="active black-text">Text Font [px]</label>
-                    <input type="text" name="selected" id = "selected" onChange = {e => {this.handleFontChange(e)}} value = {this.state.objects[this.state.selectedDiv].fontSize} />
+                    <input class= "active" type="text" name="selected" id = "selected" onChange = {e => {this.handleFontChange(e)}} value = {this.state.objects[this.state.selectedDiv].fontSize} />
                 </div>
                 </div>
             )
@@ -597,7 +597,7 @@ class ListScreen extends Component {
                 <div class = "row">
                 <div className="input-field">
                     <label htmlFor="width" className="active black-text">Border Th. [0-3]</label>
-                    <input type="text" name="selected" id = "selected" onChange = {e => this.handleBorderThicknessChange(e)} value = {this.handleTranslationThickness()}/>
+                    <input class= "active" type="text" name="selected" id = "selected" onChange = {e => this.handleBorderThicknessChange(e)} value = {this.handleTranslationThickness()}/>
                 </div>
                 </div>
             )
@@ -605,7 +605,7 @@ class ListScreen extends Component {
                 <div class = "row">
                 <div className="input-field">
                     <label htmlFor="width" className="active black-text">Border Rad. [px]</label>
-                    <input type="text" name="selected" id = "selected" onChange = {e => {this.handleRadiusChange(e)}} value = {this.state.objects[this.state.selectedDiv].borderRadius} />
+                    <input class= "active" type="text" name="selected" id = "selected" onChange = {e => {this.handleRadiusChange(e)}} value = {this.state.objects[this.state.selectedDiv].borderRadius} />
                 </div>
                 </div>
             )
