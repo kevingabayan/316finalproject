@@ -43,7 +43,7 @@ class ListScreen extends Component {
     }
     handleKey = (event) => {
         event.stopPropagation();
-        if(event.crtlKey) {
+        if(event.ctrlKey) {
             if((event.which === 68))  {
                 if(this.state.selectedDiv != "") {
                     let tempobjects = this.state.objects;
@@ -244,6 +244,7 @@ class ListScreen extends Component {
         this.props.history.push("/");
     }
     onDragStop = (e, d) => {
+        console.log(JSON.stringify(this.state.objects))
         e.stopPropagation();
         let tempobject = this.state.objects;
         if(this.state.selectedDiv != "") { 

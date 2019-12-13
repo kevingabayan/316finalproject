@@ -6,12 +6,9 @@
             "width": 4000,
             "height": 4000,
             "timestamp": 2,
-            "objects": [
-                { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "#000000", 
-                "backgroundColor": "", "color": "#000000", "borderRadius": "0px", "borderWidth": "thick"},
-                { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "#000000", 
-                    "backgroundColor": "50E3C2", "color": "#000000", "borderStyle": "", "borderRadius": "0px", "borderWidth": "thick"}
-            ]
+            "objects": [{"backgroundColor":"#ffffff","borderColor":"#000000","borderRadius":"30px","borderStyle":"solid","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"600px","key":"0","position":"absolute","type":"LC","value":"SUBTLE LIFE.","width":"600px","x":98,"y":74},
+                {"borderColor":"#000000","borderRadius":"0px","borderStyle":"","borderWidth":"thick","childClass":"pointer","color":"#000000","fontSize":"15px","height":"50px","key":"1","type":"button","value":"happiness","width":"176px","x":123.99998474121094,"y":100},
+                {"backgroundColor":"#2bbbad","borderColor":"#000000","borderRadius":"0px","borderStyle":"","borderWidth":"medium","childClass":"pointer","color":"#000000","fontSize":"15px","height":"50px","key":"2","type":"button","value":"sadness","width":"200px","x":472,"y":593.9999847412109}]
         },
         {
             "key": 1,

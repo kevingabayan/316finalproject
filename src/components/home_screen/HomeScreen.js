@@ -13,12 +13,12 @@ class HomeScreen extends Component {
         var date = new Date();
         const fireStore = getFirestore();
         fireStore.collection('wireFrames').add({
-            name: "",
+            name: "New Wire Frame",
             owner: this.props.auth.uid,
-            width: 2500,
-            height: 2500,
+            width: 4700,
+            height: 4700,
             timestamp: date.getTime(),
-            containers: []
+            objects: []
         })
         .then(function(wireFramer) {
             newbind.props.history.push("/wireFramer/" + wireFramer.id);
