@@ -134,7 +134,27 @@ class ListScreen extends Component {
         tempobjects[this.state.selectedDiv].color = color.hex;
         this.setState({objects: tempobjects});
     }
-
+    handleBorderThicknessChange = (e) => {
+        const {target} = e;
+        let tempobjects = this.state.objects;
+        console.log(target.value);
+        if(!isNaN(target.value)) {
+            if(target.value >= 0 && target.value <= 3) {
+                if(target.value == 0) {
+                    tempobjects[this.state.selectedDiv].borderWidth = "";
+                }
+                if(target.value == 1) {
+                    tempobjects[this.state.selectedDiv].borderWidth = "thin";
+                }
+                if(target.value == 2) {
+                    tempobjects[this.state.selectedDiv].borderWidth = "medium";
+                }
+                if(target.value == 3) {
+                    tempobjects[this.state.selectedDiv].borderWidth = "thick";
+                }
+            }
+        }
+    }
     handleDimensionChange = (e) => {
         const { target } = e;
         if(!isNaN(target.value)) {   
@@ -143,6 +163,21 @@ class ListScreen extends Component {
             changeDimensions: "",
             [target.id]: target.value,
             }));
+        }
+    }
+    handleTranslationThickness() {
+        console.log(this.state.objects[this.state.selectedDiv].borderWidth);
+        if (this.state.objects[this.state.selectedDiv].borderStyle == ""){
+            return 0;
+        } 
+        else if(this.state.objects[this.state.selectedDiv].borderWidth == "thin") {
+            return 1;
+        }
+        else if(this.state.objects[this.state.selectedDiv].borderWidth == "medium") {
+            return 2;
+        }
+        else if(this.state.objects[this.state.selectedDiv].borderWidth == "thick") {
+            return 3;
         }
     }
     updateDimensions = () => {
@@ -258,7 +293,7 @@ class ListScreen extends Component {
         backgroundColor: "#ffffff",
         borderWidth: "medium",
         borderStyle: "solid",
-        childClass: "pointer-active",
+        childClass: "pointer",
         color: "#000000",
         fontSize: "15px",
         height: "200px",
@@ -271,7 +306,7 @@ class ListScreen extends Component {
         position: 'absolute'
         }
         tempobjects.push(container);
-        this.setState({objects: tempobjects, selectedDiv: templength})
+        this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addLabel = () => {
         this.unselectDivs();
@@ -283,7 +318,7 @@ class ListScreen extends Component {
         backgroundColor: "#ffffff",
         borderWidth: "medium",
         borderStyle: "",
-        childClass: "pointer-active",
+        childClass: "pointer",
         color: "#000000",
         fontSize: "15px",
         height: "200px",
@@ -295,7 +330,7 @@ class ListScreen extends Component {
         y: 0
         }
         tempobjects.push(container);
-        this.setState({objects: tempobjects, selectedDiv: templength})
+        this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addButton = () => {
         this.unselectDivs();
@@ -307,7 +342,7 @@ class ListScreen extends Component {
         borderRadius: "",
         borderWidth: "medium",
         borderStyle: "",
-        childClass: "pointer-active",
+        childClass: "pointer",
         color: "#000000",
         fontSize: "15px",
         height: "50px",
@@ -319,7 +354,7 @@ class ListScreen extends Component {
         y: 0
         }
         tempobjects.push(container);
-        this.setState({objects: tempobjects, selectedDiv: templength})
+        this.setState({objects: tempobjects}, this.unselectDivs)
     }
     addTextfield = () => {
         this.unselectDivs();
@@ -330,7 +365,7 @@ class ListScreen extends Component {
         borderRadius: "",
         borderWidth: "medium",
         borderStyle: "",
-        childClass: "pointer-active",
+        childClass: "pointer",
         color: "black",
         fontSize: "15px",
         height: "50px",
@@ -343,7 +378,7 @@ class ListScreen extends Component {
         y: 0
         }
         tempobjects.push(container);
-        this.setState({objects: tempobjects, selectedDiv: templength})
+        this.setState({objects: tempobjects}, this.unselectDivs)
     }
     render() {
         const auth = this.props.auth;
@@ -538,6 +573,14 @@ class ListScreen extends Component {
             selectedItems.push(
                 <div class = "row">
                 <SketchPicker color = {this.state.objects[this.state.selectedDiv].color} onChangeComplete = {e => this.handleTextColorChange(e)} width = ""></SketchPicker>
+                </div>
+            )
+            selectedItems.push(
+                <div class = "row">
+                <div className="input-field">
+                    <label htmlFor="width" className="active black-text">Border Th. [0-3]</label>
+                    <input type="text" name="selected" id = "selected" onChange = {e => this.handleBorderThicknessChange(e)} value = {this.handleTranslationThickness()}/>
+                </div>
                 </div>
             )
         } 
