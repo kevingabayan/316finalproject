@@ -168,7 +168,7 @@ class ListScreen extends Component {
         height: "200px",
         key: tempobjects.length,
         type: "LC",
-        value: "DEFAULT",
+        value: "",
         width: "400px",
         x: 0,
         y: 0
@@ -177,13 +177,73 @@ class ListScreen extends Component {
         this.setState({objects: tempobjects, selectedDiv: templength})
     }
     addLabel = () => {
-
+        this.unselectDivs();
+        var tempobjects = this.state.objects;
+        let templength = tempobjects.length;
+        var container = 
+        {borderColor: "black",
+        borderRadius: "30px",
+        borderWidth: "medium",
+        borderStyle: "",
+        childClass: "pointer-active",
+        color: "black",
+        fontSize: "15px",
+        height: "200px",
+        key: tempobjects.length,
+        type: "LC",
+        width: "400px",
+        value: "DEFAULT",
+        x: 0,
+        y: 0
+        }
+        tempobjects.push(container);
+        this.setState({objects: tempobjects, selectedDiv: templength})
     }
     addButton = () => {
-        
+        this.unselectDivs();
+        var tempobjects = this.state.objects;
+        let templength = tempobjects.length;
+        var container = 
+        {borderColor: "black",
+        borderRadius: "",
+        borderWidth: "medium",
+        borderStyle: "",
+        childClass: "pointer-active",
+        color: "black",
+        fontSize: "15px",
+        height: "50px",
+        key: tempobjects.length,
+        type: "button",
+        width: "200px",
+        value: "DEFAULT",
+        x: 0,
+        y: 0
+        }
+        tempobjects.push(container);
+        this.setState({objects: tempobjects, selectedDiv: templength})
     }
-    addTextField = () => {
-
+    addTextfield = () => {
+        this.unselectDivs();
+        var tempobjects = this.state.objects;
+        let templength = tempobjects.length;
+        var container = 
+        {borderColor: "black",
+        borderRadius: "",
+        borderWidth: "medium",
+        borderStyle: "",
+        childClass: "pointer-active",
+        color: "black",
+        fontSize: "15px",
+        height: "50px",
+        key: tempobjects.length,
+        type: "text",
+        width: "300px",
+        value: "DEFAULT",
+        x: 0,
+        y: 0
+        }
+        tempobjects.push(container);
+        this.setState({objects: tempobjects, selectedDiv: templength})
     }
     render() {
         const auth = this.props.auth;
