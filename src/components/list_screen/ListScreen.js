@@ -139,10 +139,6 @@ class ListScreen extends Component {
         let tempobject = this.state.objects;
         tempobject[objectindex].childClass = "active-pointer";
         this.setState({selectedDiv: objectindex, objects: tempobject});
-        for(let i = 0; i < this.state.objects.length; i++) {
-            console.log(this.state.objects[i].x);
-            console.log(this.state.objects[i].y);
-        }
     }
     unselectDivs = () => {
         if(this.state.resizePrevention) {
@@ -156,6 +152,38 @@ class ListScreen extends Component {
         this.setState({selectedDiv: "", objects: tempobject});
         }
         console.log(this.state.zoom);
+    }
+    addContainer = () => {
+        this.unselectDivs();
+        var tempobjects = this.state.objects;
+        let templength = tempobjects.length;
+        var container = 
+        {borderColor: "black",
+        borderRadius: "30px",
+        borderWidth: "medium",
+        borderStyle: "solid",
+        childClass: "pointer-active",
+        color: "blue",
+        fontSize: "15px",
+        height: "200px",
+        key: tempobjects.length,
+        type: "LC",
+        value: "DEFAULT",
+        width: "400px",
+        x: 0,
+        y: 0
+        }
+        tempobjects.push(container);
+        this.setState({objects: tempobjects, selectedDiv: templength})
+    }
+    addLabel = () => {
+
+    }
+    addButton = () => {
+        
+    }
+    addTextField = () => {
+
     }
     render() {
         const auth = this.props.auth;
@@ -187,10 +215,10 @@ class ListScreen extends Component {
                         topLeft: this.state.objects[i].childClass,
                     }}
                     resizeHandleComponent = {{
-                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " ")
                     }}
                     enableResizing = {{
                         bottom: false,
@@ -207,7 +235,7 @@ class ListScreen extends Component {
                         <input onFocus = {(e) => {this.selectDiv(e)}} onClick = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        borderStyle: this.state.objects[i].borderStyle, borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
                         position: "absolute"
                         }} 
                         value = {this.state.objects[i].value}/>
@@ -219,6 +247,7 @@ class ListScreen extends Component {
                     scale = {this.state.zoom}
                     style = {{transform:"scale(" + this.state.zoom.toString() + ")"}}
                     position={{ x: this.state.objects[i].x, y: this.state.objects[i].y }}
+                    onDragStart = {(e) => {this.selectDiv(e)}}
                     onDragStop= {(e,d) => {this.onDragStop(e,d)}}
                     onResizeStop = {(e,direction,ref,delta,position) => {this.onResizeStop(e,direction,ref,delta,position)}}
                     className = {this.state.objects[i].key}
@@ -229,10 +258,10 @@ class ListScreen extends Component {
                         topLeft: this.state.objects[i].childClass,
                     }}
                     resizeHandleComponent = {{
-                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " ")
                     }}
                     enableResizing = {{
                         bottom: false,
@@ -249,7 +278,7 @@ class ListScreen extends Component {
                         <div onClick = {(e) => {this.selectDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        lineHeight: this.state.objects[i].height, textAlign: "center", borderStyle: this.state.objects[i].borderStyle, borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
                         position: "absolute"
                         }}>{this.state.objects[i].value}</div>
                 </Rnd>) 
@@ -270,10 +299,10 @@ class ListScreen extends Component {
                         topLeft: this.state.objects[i].childClass,
                     }}
                     resizeHandleComponent = {{
-                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " l"),
-                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " l")
+                        bottomLeft: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        bottomRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topRight: React.createElement('div', {id: this.state.objects[i].key}, " "),
+                        topLeft: React.createElement('div', {id: this.state.objects[i].key}, " ")
                     }}
                     enableResizing = {{
                         bottom: false,
@@ -290,7 +319,7 @@ class ListScreen extends Component {
                         <Button onClick = {(e) => {this.selectDiv(e)}} onFocus = {(e) => {this.selectDiv(e)}} className = {this.state.objects[i].key} type="text" style = {{width: this.state.objects[i].width, height: this.state.objects[i].height, 
                         fontSize: this.state.objects[i].fontSize, borderColor: this.state.objects[i].borderColor, 
                         backgroundColor: this.state.objects[i].backgroundColor, color: this.state.objects[i].color, 
-                        borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
+                        borderStyle: this.state.objects[i].borderStyle, borderRadius: this.state.objects[i].borderRadius, borderWidth: this.state.objects[i].borderWidth,
                         position: "absolute"
                         }}>{this.state.objects[i].value}</Button>
                 </Rnd>) 

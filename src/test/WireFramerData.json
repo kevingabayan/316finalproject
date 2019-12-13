@@ -10,7 +10,7 @@
                 { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Life", "type": "text", "fontSize": "15px", "borderColor": "black", 
                 "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
                 { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Subtle", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
+                    "backgroundColor": "", "color": "black", "borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         },
         {
@@ -23,7 +23,7 @@
                 { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "McKilla", "type": "text", "fontSize": "15px", "borderColor": "black", 
                     "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
                 { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Gorilla", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
+                    "backgroundColor": "", "color": "black","borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         },
         {
@@ -36,7 +36,7 @@
                 { "width": 200, "height": 50, "x": 200, "y": 200, "key": "0", "childClass": "pointer", "value": "Sad", "type": "text", "fontSize": "15px", "borderColor": "black", 
                     "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"},
                 { "width": 200, "height": 50, "x": 0, "y": 0, "key": "1", "childClass": "pointer", "value": "Frame", "type": "button", "fontSize": "15px", "borderColor": "black", 
-                    "backgroundColor": "", "color": "black", "borderRadius": "", "borderWidth": "thick"}
+                    "backgroundColor": "", "color": "black","borderStyle": "", "borderRadius": "", "borderWidth": "thick"}
             ]
         }
     ]
