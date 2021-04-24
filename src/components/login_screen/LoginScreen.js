@@ -53,7 +53,7 @@ class LoginScreen extends Component {
               <input className="active" type="email" name="email" id="email" onChange={this.handleChange} />
             </div>
             <div className="input-field">
-              <label htmlFor="password">Password (at least 6 characters)</label>
+              <label htmlFor="password">Password</label>
               <input className="active" type="password" name="password" id="password" onChange={this.handleChange} />
             </div>
             <div className="input-field">

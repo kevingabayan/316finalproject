@@ -48,7 +48,7 @@ class RegisterScreen extends Component {
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" onChange={this.handleChange} />
+            <input type="password" name="password (at least 6 characters)" id="password" onChange={this.handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="firstName">First Name</label>
