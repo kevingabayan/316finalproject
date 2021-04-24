@@ -3,7 +3,8 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
     apiKey: "AIzaSyB2PCOc8O6HYAL7vYCcxpfV8ui2LVbxGrE",
     authDomain: "cse-316-final-project.firebaseapp.com",
     databaseURL: "https://cse-316-final-project.firebaseio.com",
@@ -13,7 +14,7 @@ var firebaseConfig = {
     appId: "1:962383110164:web:5a2b415110b55379180701",
     measurementId: "G-DX8YW7TZ7D"
   };
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
 // NOW THE firebase OBJECT CAN BE CONNECTED TO THE STORE
 export default firebase;
